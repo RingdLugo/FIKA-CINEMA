@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIKA Cinema</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">
+      <img src="imagenes/logo.png" alt="FIKA Cinema">
+</div>
+        <h1>Cumbres Borrascosas</h1>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container">
+
+        <!-- LADO IZQUIERDO -->
+        <div class="left">
+
+            <div class="video">
+                <iframe width="100%" height="300"
+                 src="https://www.youtube.com/embed/RNynG8dMp5w"
+                 frameborder="0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                 allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <h2>Cumbres Borrascosas</h2>
+
+            <p class="description">
+                Una versión audaz y original de una de las historias de amor más grandes de todos los tiempos.
+                La pasión prohibida se transforma de romántica a obsesiva en una historia épica de deseo, amor y locura.
+            </p>
+
+            <div class="info">
+                <p><strong>Clasificación:</strong> TCB</p>
+                <p><strong>Director:</strong> Emerald Fennell</p>
+                <p><strong>Actores:</strong> Margot Robbie, Jacob Elordi, Owen Cooper</p>
+            </div>
+
+        </div>
+
+        <!-- LADO DERECHO -->
+        <div class="right">
+
+            <div class="dates">
+                  <button class="day" data-day="lunes">LUN 17 FEB</button>
+                  <button class="day" data-day="martes">MAR 18 FEB</button>
+                  <button class="day" data-day="miercoles">MIÉ 19 FEB</button>
+                  <button class="day" data-day="jueves">JUE 20 FEB</button>
+                  <button class="day" data-day="viernes">VIE 21 FEB</button>
+                  <button class="day" data-day="sabado">SÁB 22 FEB</button>
+                  <button class="day" data-day="domingo">DOM 23 FEB</button>
+            </div>
+
+
+
+            <div class="schedule">
+               <h3 id="tituloEspanol" style="display:none;">Premium Español</h3>
+<div class="times" id="seccionEspanol" style="display:none;">
+
+
+    <!-- LUNES -->
+    <button class="time" data-day="lunes">10:00 AM</button>
+    <button class="time" data-day="lunes">1:00 PM</button>
+    <button class="time" data-day="lunes">4:30 PM</button>
+    <button class="time" data-day="lunes">8:00 PM</button>
+
+    <!-- MARTES -->
+    <button class="time" data-day="martes">11:00 AM</button>
+    <button class="time" data-day="martes">2:30 PM</button>
+    <button class="time" data-day="martes">6:00 PM</button>
+    <button class="time" data-day="martes">9:15 PM</button>
+
+    <!-- MIÉRCOLES -->
+    <button class="time" data-day="miercoles">9:45 AM</button>
+    <button class="time" data-day="miercoles">12:15 PM</button>
+    <button class="time" data-day="miercoles">5:00 PM</button>
+    <button class="time" data-day="miercoles">7:45 PM</button>
+
+    <!-- JUEVES -->
+    <button class="time" data-day="jueves">10:30 AM</button>
+    <button class="time" data-day="jueves">3:00 PM</button>
+    <button class="time" data-day="jueves">6:45 PM</button>
+    <button class="time" data-day="jueves">9:30 PM</button>
+
+    <!-- VIERNES -->
+    <button class="time" data-day="viernes">10:00 AM</button>
+    <button class="time" data-day="viernes">1:45 PM</button>
+    <button class="time" data-day="viernes">5:30 PM</button>
+    <button class="time" data-day="viernes">10:00 PM</button>
+
+    <!-- SÁBADO -->
+    <button class="time" data-day="sabado">9:00 AM</button>
+    <button class="time" data-day="sabado">12:00 PM</button>
+    <button class="time" data-day="sabado">4:00 PM</button>
+    <button class="time" data-day="sabado">8:30 PM</button>
+
+    <!-- DOMINGO -->
+    <button class="time" data-day="domingo">10:15 AM</button>
+    <button class="time" data-day="domingo">2:00 PM</button>
+    <button class="time" data-day="domingo">5:45 PM</button>
+    <button class="time" data-day="domingo">7:30 PM</button>
+
+</div>
+
+
+             <h3 id="tituloSub" style="display:none;">Premium Subtitulada</h3>
+<div class="times" id="seccionSub" style="display:none;">
+
+
+
+    <!-- LUNES -->
+    <button class="time" data-day="lunes">12:30 PM</button>
+    <button class="time" data-day="lunes">6:15 PM</button>
+
+    <!-- MARTES -->
+    <button class="time" data-day="martes">1:00 PM</button>
+    <button class="time" data-day="martes">7:00 PM</button>
+
+    <!-- MIÉRCOLES -->
+    <button class="time" data-day="miercoles">2:00 PM</button>
+    <button class="time" data-day="miercoles">8:15 PM</button>
+
+    <!-- JUEVES -->
+    <button class="time" data-day="jueves">12:45 PM</button>
+    <button class="time" data-day="jueves">7:30 PM</button>
+
+    <!-- VIERNES -->
+    <button class="time" data-day="viernes">3:15 PM</button>
+    <button class="time" data-day="viernes">9:45 PM</button>
+
+    <!-- SÁBADO -->
+    <button class="time" data-day="sabado">1:30 PM</button>
+    <button class="time" data-day="sabado">6:30 PM</button>
+
+    <!-- DOMINGO -->
+    <button class="time" data-day="domingo">12:00 PM</button>
+    <button class="time" data-day="domingo">6:00 PM</button>
+
+</div>
+<h3 id="regularTitulo" style="display:none;">Regular Español</h3>
+<div class="times" id="regularSection" style="display:none;">
+
+    <!-- SOLO LUNES -->
+    <button class="time" data-day="lunes">9:00 AM</button>
+    <button class="time" data-day="lunes">11:30 AM</button>
+    <button class="time" data-day="lunes">2:00 PM</button>
+    <button class="time" data-day="lunes">5:00 PM</button>
+
+</div>
+
+
+                  </div>
+
+              <div class="actions">
+                <button class="continue">CONTINUAR</button>
+                <button class="cancel" id="cancelBtn">CANCELAR</button>
+         </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2026 FIKA Cinema
+    </footer>
+
+    <script>
+
+const dayButtons = document.querySelectorAll(".day");
+const timeButtons = document.querySelectorAll(".time");
+
+let selectedDay = null;
+
+// Ocultar todos los horarios al inicio
+timeButtons.forEach(btn => {
+    btn.style.display = "none";
+});
+
+// Selección de día
+dayButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        dayButtons.forEach(btn => btn.classList.remove("selected"));
+        timeButtons.forEach(btn => btn.classList.remove("selected"));
+
+        button.classList.add("selected");
+        selectedDay = button.dataset.day;// Mostrar secciones cuando se seleccione un día
+document.getElementById("tituloEspanol").style.display = "block";
+document.getElementById("seccionEspanol").style.display = "flex";
+
+document.getElementById("tituloSub").style.display = "block";
+document.getElementById("seccionSub").style.display = "flex";
+
+        const regularSection = document.getElementById("regularSection");
+const regularTitulo = document.getElementById("regularTitulo");
+
+// Mostrar sección Regular solo si es lunes
+if (selectedDay === "lunes") {
+    regularSection.style.display = "flex";
+    regularTitulo.style.display = "block";
+} else {
+    regularSection.style.display = "none";
+    regularTitulo.style.display = "none";
+}
+
+
+        timeButtons.forEach(btn => {
+            if (btn.dataset.day === selectedDay) {
+                btn.style.display = "inline-block";
+            } else {
+                btn.style.display = "none";
+            }
+        });
+    });
+});
+
+// Selección de horario
+timeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        if (!selectedDay) return;
+
+        timeButtons.forEach(btn => btn.classList.remove("selected"));
+        button.classList.add("selected");
+    });
+});
+
+const cancelBtn = document.getElementById("cancelBtn");
+
+cancelBtn.addEventListener("click", () => {
+// Ocultar nuevamente las secciones
+document.getElementById("tituloEspanol").style.display = "none";
+document.getElementById("seccionEspanol").style.display = "none";
+
+document.getElementById("tituloSub").style.display = "none";
+document.getElementById("seccionSub").style.display = "none";
+
+
+    // Quitar selección de días
+    dayButtons.forEach(btn => btn.classList.remove("selected"));
+
+    // Quitar selección de horarios
+    timeButtons.forEach(btn => {
+        btn.classList.remove("selected");
+        btn.style.display = "none"; // Oculta horarios
+    });
+
+    // Ocultar sección Regular si existe
+    const regularSection = document.getElementById("regularSection");
+    const regularTitulo = document.getElementById("regularTitulo");
+
+    if (regularSection) regularSection.style.display = "none";
+    if (regularTitulo) regularTitulo.style.display = "none";
+
+    selectedDay = null;
+});
+
+
+</script>
+
+
+</body>
+</html>
