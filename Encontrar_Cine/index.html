@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuentra tu cine - FIKA Cinema</title>
+
+<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<header class="header">
+    <img src="imagenes/logo.png" alt="FIKA Cinema" class="logo">
+</header>
+
+<div class="container">
+
+    <div class="content-box">
+        <h1>¡Escoge tu cine de preferencia!</h1>
+        <p class="subtitle">
+            Usaremos tus datos para ofrecerte las mejores películas en los FIKA Cinema más cercanos.
+        </p>
+
+        <div class="form-box">
+
+            <div class="form-group">
+                <label>Tu Estado:</label>
+                <select id="estado">
+                    <option value="">Selecciona un estado</option>
+                    <option value="cdmx">Ciudad de México</option>
+                    <option value="jalisco">Jalisco</option>
+                    <option value="nuevoleon">Nuevo León</option>
+                    <option value="edomex">Estado de México</option>
+                    <option value="puebla">Puebla</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Ciudad:</label>
+                <select id="ciudad" disabled>
+                    <option value="">Selecciona una ciudad</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Cine favorito:</label>
+                <select id="cine" disabled>
+                    <option value="">Selecciona un cine</option>
+                </select>
+            </div>
+
+            
+            <button class="btn" id="btnEncontrar">Seleccionar</button>
+
+<div id="resultado" class="resultado"></div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
