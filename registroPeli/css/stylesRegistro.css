@@ -1,0 +1,242 @@
+/* QUITA ESPACIOS Y APLICA CAJA A TODOS LOS ELEMENTOS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ESTILO GENERAL DE LA PÁGINA */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* letra de la página */
+  font-size: 13px;
+  background: linear-gradient(135deg, #e8e8e0 0%, #d8d8c8 100%); /* fondo degradado */
+  padding: 15px;      /* espacio desde los bordes de la ventana */
+  color: #111;        /* color de texto */
+  min-height: 100vh;  /* altura mínima para cubrir la pantalla */
+}
+
+/* CAJA QUE CONTIENE TODO EL FORMULARIO Y POSTER */
+.app-container {
+  max-width: 1100px;  /* ancho máximo de la caja */
+  margin: 0 auto;     /* centrar en la pantalla */
+  background: linear-gradient(to bottom, #f5f5f5, #f2f2f2); /* fondo degradado */
+  border: 3px solid #000; 
+  border-radius: 6px;  /* bordes redondeados */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.7); /* sombra */
+  overflow: hidden;    /* evita que el contenido sobresalga */
+}
+
+/* PARTE SUPERIOR CON EL LOGO */
+.header {
+  background: linear-gradient(to bottom, #dfdfc0, #c3c38c); /* fondo degradado */
+  padding: 8px 24px;  /* espacio arriba y abajo, y a los lados */
+  border-bottom: 3px solid #000; /* línea inferior */
+  text-align: center; /* centrar contenido */
+}
+
+.logo {
+  max-height: 70px;   /* tamaño máximo del logo */
+  width: auto;        /* mantener proporción */
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); /* sombra sutil */
+}
+
+/* ÁREA DONDE ESTÁ EL FORMULARIO Y EL POSTER */
+.main-panel {
+  display: flex;      /* coloca formulario y poster uno al lado del otro */
+  padding: 15px 30px; /* espacio dentro del panel */
+  gap: 35px;          /* espacio entre formulario y poster */
+  background: #f9f9f1; /* color de fondo */
+}
+
+/* FORMULARIO DE DATOS DE LA PELÍCULA */
+.form-panel {
+  flex: 1;           /* ocupa todo el espacio disponible */
+  max-width: 720px;  /* ancho máximo del formulario */
+}
+
+/* TÍTULOS DE CADA SECCIÓN */
+.section-title {
+  background: linear-gradient(to right, #d8d8d0, #e8e8e0);
+  border: 2px solid #000;
+  border-bottom: 3px solid #707070;
+  border-right: 3px solid #707070;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;  /* espacio debajo del título */
+  border-radius: 3px;   /* bordes redondeados */
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.7); /* sombra ligera al texto */
+}
+
+/* ORGANIZAR ETIQUETAS Y CAMPOS DEL FORMULARIO */
+.form-fields {
+  display: grid; 
+  grid-template-columns: 130px 1fr; /* etiqueta a la izquierda, input a la derecha */
+  gap: 8px 18px;                   /* espacio entre filas y columnas */
+  align-items: start;
+}
+
+.row {
+  display: contents;  /* permite que cada fila se acomode dentro de la grilla */
+}
+
+.sinopsis-row {
+  align-items: start; /* alinea la sinopsis al inicio */
+}
+
+/* TEXTO DE LAS ETIQUETAS */
+label {
+  font-weight: bold;
+  text-align: right;    /* etiqueta alineada a la derecha */
+  padding-right: 14px;  /* espacio entre etiqueta y campo */
+  padding-top: 5px;
+  color: #1a1a1a;
+  text-shadow: 1px 1px 1px #fff; /* texto más legible */
+}
+
+/* ESTILO DE LOS CAMPOS DE TEXTO */
+.input-box {
+  background: linear-gradient(to bottom, #e8e8e0, #d8d8d0);
+  border: 2px solid #000;
+  border-bottom: 4px solid #707070;
+  border-right: 4px solid #707070;
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.28),
+              inset -2px -2px 4px rgba(255,255,255,0.7);
+  padding: 6px 10px;
+  font-size: 13px;
+  width: 100%;
+  resize: vertical; /* permite cambiar altura solo en textarea */
+  transition: all 0.18s ease;
+  border-radius: 3px;
+}
+
+.input-box:focus {
+  outline: none;
+  border-color: #004080;
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.35),
+              0 0 10px rgba(0, 80, 128, 0.45),
+              inset -2px -2px 4px rgba(255,255,255,0.6);
+  background: #f8fcff; /* color cuando está seleccionado */
+}
+
+/* ANCHOS DE CAMPOS */
+.input-box.short   { max-width: 170px; }
+.input-box.medium  { max-width: 320px; }
+.input-box.long    { width: 100%; }
+.input-box.sinopsis {
+  height: 100px;
+  min-height: 80px;
+  grid-column: 2;  /* ocupa la columna del input */
+}
+
+/* ESTILO DE SELECTS */
+select.input-box {
+  height: 28px;
+  padding: 4px 34px 4px 10px;
+  background-color: #e0e0d8;
+  background-image: url("data:image/svg+xml,..."); /* flecha personalizada */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* ESTILO PARA SUBIR ARCHIVOS */
+input[type="file"].input-box {
+  padding: 5px;
+  height: 28px;
+  cursor: pointer;
+}
+
+/* PANEL DEL POSTER */
+.poster-panel {
+  width: 340px;
+  text-align: center;
+}
+
+.poster-box {
+  border: 3px solid #000;
+  background: linear-gradient(to bottom, #d0d0c8, #c0c0b8);
+  padding: 6px;
+  height: 420px;
+  overflow: hidden;
+  box-shadow: inset 3px 3px 8px rgba(0,0,0,0.45),
+              0 3px 10px rgba(0,0,0,0.35);
+  border-radius: 4px;
+}
+
+.poster-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #222;
+  border-radius: 2px;
+}
+
+/* BARRA DE BOTONES ABAJO */
+.toolbar {
+  background: linear-gradient(to bottom, #f0f0e8, #e0e0d8);
+  border-top: 3px solid #000;
+  padding: 10px 28px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.toolbar-label {
+  font-weight: bold;
+  min-width: 130px;
+}
+
+.buttons-group {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* BOTONES */
+.btn {
+  padding: 8px 16px;
+  background: linear-gradient(to bottom, #f5f5ed, #e5e5dd);
+  border: 2px solid #000;
+  border-bottom: 5px solid #707070;
+  border-right: 5px solid #707070;
+  font-size: 13px;
+  font-weight: bold;
+  min-width: 110px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 3px;
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translate(3px, 3px); }
+
+/* COLORES DE BOTONES POR ACCIÓN */
+.btn.insert    { background: linear-gradient(to bottom, #c8f0c8, #b0e0b0); }
+.btn.modificar { background: linear-gradient(to bottom, #c8c8f0, #b0b0e0); }
+.btn.eliminar  { color: #b00000; background: linear-gradient(to bottom, #f0c8c8, #e0b0b0); }
+
+/* AJUSTES PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 950px) {
+  .main-panel {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  .poster-panel {
+    width: 100%;
+    max-width: 360px;
+  }
+  .form-fields {
+    grid-template-columns: 1fr;
+  }
+  label {
+    text-align: left;
+  }
+  .app-container {
+    max-width: 95%;
+  }
+}
