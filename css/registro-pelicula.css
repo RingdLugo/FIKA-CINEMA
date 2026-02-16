@@ -4,12 +4,41 @@
   padding: 0;
   box-sizing: border-box;
 }
+.navbar {
+    margin: 16px;
+    padding: 10px 16px;
+    border-radius: 4px;
+}
+.nav-fondo {
+    background-color:rgba(201, 172, 75, 0.15);
+    }
+.nav-sombra {
+    box-shadow: 
+    0px 2px 4px rgba(0, 0, 0, 0.12),
+    0px 4px 8px rgba(0, 0, 0, 0.14),
+    0px 6px 2px rgba(0, 0, 0, 0.16),
+    0px 8px 12px rgba(0, 0, 0, 0.18);
+}/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+    background-color: #e8e8e0;
+    padding: 15px 40px;
+}
+
+.logo {
+    height: 45px;    
+    object-fit: contain;
+    }   
 
 /* ESTILO GENERAL DE LA PÁGINA */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* letra de la página */
   font-size: 13px;
-  background: linear-gradient(135deg, #e8e8e0 0%, #d8d8c8 100%); /* fondo degradado */
   padding: 15px;      /* espacio desde los bordes de la ventana */
   color: #111;        /* color de texto */
   min-height: 100vh;  /* altura mínima para cubrir la pantalla */
@@ -26,19 +55,6 @@ body {
   overflow: hidden;    /* evita que el contenido sobresalga */
 }
 
-/* PARTE SUPERIOR CON EL LOGO */
-.header {
-  background: linear-gradient(to bottom, #dfdfc0, #c3c38c); /* fondo degradado */
-  padding: 8px 24px;  /* espacio arriba y abajo, y a los lados */
-  border-bottom: 3px solid #000; /* línea inferior */
-  text-align: center; /* centrar contenido */
-}
-
-.logo {
-  max-height: 70px;   /* tamaño máximo del logo */
-  width: auto;        /* mantener proporción */
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); /* sombra sutil */
-}
 
 /* ÁREA DONDE ESTÁ EL FORMULARIO Y EL POSTER */
 .main-panel {
@@ -197,7 +213,7 @@ input[type="file"].input-box {
 }
 
 /* BOTONES */
-.btn {
+.btnform {
   padding: 8px 16px;
   background: linear-gradient(to bottom, #f5f5ed, #e5e5dd);
   border: 2px solid #000;
@@ -211,13 +227,13 @@ input[type="file"].input-box {
   border-radius: 3px;
 }
 
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translate(3px, 3px); }
+.btnform:hover { transform: translateY(-1px); }
+.btnform:active { transform: translate(3px, 3px); }
 
 /* COLORES DE BOTONES POR ACCIÓN */
-.btn.insert    { background: linear-gradient(to bottom, #c8f0c8, #b0e0b0); }
-.btn.modificar { background: linear-gradient(to bottom, #c8c8f0, #b0b0e0); }
-.btn.eliminar  { color: #b00000; background: linear-gradient(to bottom, #f0c8c8, #e0b0b0); }
+.btnform.insert    { background: linear-gradient(to bottom, #c8f0c8, #b0e0b0); }
+.btnform.modificar { background: linear-gradient(to bottom, #c8c8f0, #b0b0e0); }
+.btnform.eliminar  { color: #b00000; background: linear-gradient(to bottom, #f0c8c8, #e0b0b0); }
 
 /* AJUSTES PARA PANTALLAS PEQUEÑAS */
 @media (max-width: 950px) {

@@ -4,16 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro de Películas - FIKA CINEMA</title>
-  <link rel="stylesheet" href="css/stylesRegistro.css">
+  <link rel="stylesheet" href="../css/registro-pelicula.css">
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
+
+  <nav class="navbar border-bottom nav-fondo nav-sombra">
+    <div class="container-fluid d-flex align-items-center justify-content-start gap-3">
+
+      <a href="../html/admin-panel.html" class="btn btn-outline-secondary btn-lg">
+        <i class="bi bi-arrow-left fs-4"></i>
+      </a>
+
+      <img src="../img/fikacinema.png" alt="Logo Fika Cinema" class="logo">
+
+    </div>
+  </nav>
 
 <div class="app-container">
 
   <!-- ---- Header / Logo ---- -->
-  <header class="header">
-    <img src="imagenes/logo-fika.png" alt="Logo Fika Cinema" class="logo">
-  </header>
+
 
   <!-- ---- Panel principal ---- -->
   <div class="main-panel">
@@ -95,11 +109,11 @@
   <div class="toolbar">
     <div class="toolbar-label">Mantenimiento</div>
     <div class="buttons-group">
-      <button type="button" class="btn insert">📥 Insertar</button>
-      <button type="button" class="btn buscar">🔍 Buscar</button>
-      <button type="button" class="btn modificar">🖊️ Modificar</button>
-      <button type="button" class="btn eliminar">🗑️ Eliminar</button>
-      <a href="index.html" class="btn volver">↩️ Volver</a>
+      <button type="button" class="btnform insert">📥 Insertar</button>
+      <button type="button" class="btnform buscar">🔍 Buscar</button>
+      <button type="button" class="btnform modificar">🖊️ Modificar</button>
+      <button type="button" class="btnform eliminar">🗑️ Eliminar</button>
+      <a href="index.html" class="btnform volver">↩️ Volver</a>
     </div>
   </div>
 
@@ -140,7 +154,7 @@
   }
 
   // ---- INSERTAR ----
-  document.querySelector('.btn.insert').addEventListener('click', async function(e) {
+  document.querySelector('.btnform.insert').addEventListener('click', async function(e) {
     e.preventDefault();
     const data = getFormData();
     if (!data.noPelicula || !data.generos || !data.sinopsis) {
@@ -164,7 +178,7 @@
   });
 
   // ---- BUSCAR ----
-  document.querySelector('.btn.buscar').addEventListener('click', async function(e) {
+  document.querySelector('.btnform.buscar').addEventListener('click', async function(e) {
     e.preventDefault();
     let id = document.getElementById('noPelicula').value.trim();
     id = id ? parseInt(id, 10).toString() : '';
@@ -180,7 +194,7 @@
   });
 
   // ---- MODIFICAR ----
-  document.querySelector('.btn.modificar').addEventListener('click', async function(e) {
+  document.querySelector('.btnform.modificar').addEventListener('click', async function(e) {
     e.preventDefault();
     let id = document.getElementById('noPelicula').value.trim();
     id = id ? parseInt(id, 10).toString() : '';
@@ -202,7 +216,7 @@
   });
 
   // ---- ELIMINAR ----
-  document.querySelector('.btn.eliminar').addEventListener('click', async function(e) {
+  document.querySelector('.btnform.eliminar').addEventListener('click', async function(e) {
     e.preventDefault();
     let id = document.getElementById('noPelicula').value.trim();
     id = id ? parseInt(id, 10).toString() : '';

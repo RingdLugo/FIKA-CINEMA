@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - FIKA Cinema</title>
-    <link rel="stylesheet" href="stylesRegistro.css">
+    <link rel="stylesheet" href="../css/registro.css">
 </head>
 
 <body>
+    <nav class="navbar border-bottom nav-fondo nav-sombra">
+        <div class="container-fluid d-flex align-items-center justify-content-start gap-3">
 
-    <!-- Barra superior -->
-    <div class="header">
-        <img src="image.png" alt="FIKA Cinema Logo" class="logo">
-    </div>
+        <a href="../html/detalles-pelicula.html" class="btn btn-outline-secondary btn-lg">
+            <i class="bi bi-arrow-left fs-4"></i>
+        </a>
+
+        <img src="../img/fikacinema.png" alt="Logo Fika Cinema" class="logo">
+
+        </div>
+    </nav>
 
     <div class="container">
         <div class="register-box">
@@ -22,7 +28,7 @@
                 Regístrate y disfruta de la experiencia FIKA Cinema
             </p>
 
-            <form>
+            <form action="../html/encontrar-cine.html">
                 <label>Nombre completo:</label>
                 <input type="text" placeholder="Ingresa tu nombre completo" required>
 

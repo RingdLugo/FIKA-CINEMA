@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - FIKA Cinema</title>
-    <link rel="stylesheet" href="stylesLogin.css">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 
 <body>
+    <nav class="navbar border-bottom nav-fondo nav-sombra">
+        <div class="container-fluid d-flex align-items-center justify-content-start gap-3">
 
-    <!-- Barra superior -->
-    <div class="header">
-        <img src="image.png" alt="FIKA Cinema Logo" class="logo">
-    </div>
+        <a href="../html/detalles-pelicula.html" class="btn btn-outline-secondary btn-lg">
+            <i class="bi bi-arrow-left fs-4"></i>
+        </a>
+
+        <img src="../img/fikacinema.png" alt="Logo Fika Cinema" class="logo">
+
+        </div>
+    </nav>
+    
+
 
     <div class="container">
         <div class="login-box">
@@ -22,7 +30,7 @@
                 Inicia sesión para acceder a nuestros beneficios
             </p>
 
-            <form>
+            <form action="/index.html">
                 <label>Usuario:</label>
                 <input type="email" placeholder="Ingresa tu correo" required>
 
@@ -42,17 +50,17 @@
 
             <div class="social-icons">
                 <a href="https://www.facebook.com/login" target="_blank">
-                    <img src="facebook.png" alt="Facebook">
+                    <img src="../img/facebook.png" alt="Facebook">
                 </a>
                 <a href="https://www.instagram.com/accounts/login/" target="_blank">
-                    <img src="instagram.png" alt="Instagram">
+                    <img src="../img/instagram.png" alt="Instagram">
                 </a>
             </div>
 
             <!-- Registro como en el diseño -->
             <div class="register-section">
                 <span>¿No tienes cuenta?</span>
-                <a href="registro.html" class="btn-register">
+                <a href="../html/registro.html" class="btn-register">
                     Regístrate aquí
                 </a>
             </div>
