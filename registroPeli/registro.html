@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Películas - FIKA CINEMA</title>
+  <link rel="stylesheet" href="css/stylesRegistro.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- ---- Header / Logo ---- -->
+  <header class="header">
+    <img src="imagenes/logo-fika.png" alt="Logo Fika Cinema" class="logo">
+  </header>
+
+  <!-- ---- Panel principal ---- -->
+  <div class="main-panel">
+
+    <!-- ---- Formulario de película ---- -->
+    <div class="form-panel">
+      <div class="section-title">Datos de la película</div>
+
+      <form id="peliculaForm" class="form-fields" onsubmit="return false;">
+        <div class="row">
+          <label for="noPelicula">No. Película</label>
+          <input type="text" id="noPelicula" name="noPelicula" class="input-box short" placeholder="Ej: 1 (prueba 1-100)">
+        </div>
+        <div class="row">
+          <label for="generos">Géneros</label>
+          <input type="text" id="generos" name="generos" class="input-box long" placeholder="Acción, Drama, Suspenso...">
+        </div>
+        <div class="row">
+          <label for="serie">Serie</label>
+          <input type="text" id="serie" name="serie" class="input-box long" placeholder="Ej: Marvel Cinematic Universe">
+        </div>
+        <div class="row">
+          <label for="duracion">Duración</label>
+          <input type="text" id="duracion" name="duracion" class="input-box short" placeholder="Ej: 128 min">
+        </div>
+        <div class="row sinopsis-row">
+          <label for="sinopsis">Sinopsis</label>
+          <textarea id="sinopsis" name="sinopsis" class="input-box sinopsis" placeholder="Breve descripción de la película..."></textarea>
+        </div>
+        <div class="row">
+          <label for="estado">Estado</label>
+          <select id="estado" name="estado" class="input-box short">
+            <option value="">Seleccionar</option>
+            <option value="estreno">Estreno</option>
+            <option value="preventa">Preventa</option>
+            <option value="preestreno">Pre-estreno</option>
+            <option value="cartelera">En cartelera</option>
+            <option value="proximamente">Próximamente</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="idioma">Idioma</label>
+          <select id="idioma" name="idioma" class="input-box medium">
+            <option value="">Seleccionar</option>
+            <option value="español">Español</option>
+            <option value="espanol-sub">Español (subtitulada)</option>
+            <option value="ingles">Inglés (subtitulada)</option>
+            <option value="ingles-doblada">Inglés (doblada)</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="reparto1">Reparto 1</label>
+          <input type="text" id="reparto1" name="reparto1" class="input-box long" placeholder="Actor principal o director">
+        </div>
+        <div class="row">
+          <label for="reparto2">Reparto 2</label>
+          <input type="text" id="reparto2" name="reparto2" class="input-box long" placeholder="Actor secundario o productor">
+        </div>
+        <div class="row">
+          <label for="posterUpload">Póster</label>
+          <input type="file" id="posterUpload" name="poster" accept="image/*" class="input-box long">
+        </div>
+      </form>
+    </div>
+
+    <!-- ---- Panel de previsualización ---- -->
+    <div class="poster-panel">
+      <div class="section-title poster-title">— POSTER —</div>
+      <div class="poster-box">
+        <img src="https://images.unsplash.com/photo-1607604053594-86421d8b4761?w=400"
+             alt="Previsualización del póster" id="posterPreview">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---- Toolbar / botones ---- -->
+  <div class="toolbar">
+    <div class="toolbar-label">Mantenimiento</div>
+    <div class="buttons-group">
+      <button type="button" class="btn insert">📥 Insertar</button>
+      <button type="button" class="btn buscar">🔍 Buscar</button>
+      <button type="button" class="btn modificar">🖊️ Modificar</button>
+      <button type="button" class="btn eliminar">🗑️ Eliminar</button>
+      <a href="index.html" class="btn volver">↩️ Volver</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ---- Scripts ---- -->
+<script>
+  // Previsualización de la imagen del póster
+  document.getElementById('posterUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('posterPreview');
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) { preview.src = event.target.result; };
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "https://images.unsplash.com/photo-1607604053594-86421d8b4761?w=400";
+    }
+  });
+
+  // URL simulada de API
+  const BASE_URL = 'https://jsonplaceholder.typicode.com/posts';
+  const form = document.getElementById('peliculaForm');
+
+  function getFormData() {
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (trimmed !== '') data[key] = trimmed;
+      }
+    });
+    return data;
+  }
+
+  function showMessage(title, message, isError = false) {
+    alert(title + "\n\n" + message + (isError ? "\n\n(Revisa consola F12 si hay problemas)" : ""));
+  }
+
+  // ---- INSERTAR ----
+  document.querySelector('.btn.insert').addEventListener('click', async function(e) {
+    e.preventDefault();
+    const data = getFormData();
+    if (!data.noPelicula || !data.generos || !data.sinopsis) {
+      showMessage('Campos obligatorios', 'Completa No. Película, Géneros y Sinopsis', true);
+      return;
+    }
+    try {
+      const response = await fetch(BASE_URL, {
+        method: 'POST',
+        body: JSON.stringify({ ...data, userId: 1 }),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+      });
+      const result = await response.json();
+      showMessage('Éxito (simulado)', `Película insertada con ID: ${result.id}`);
+      form.reset();
+      document.getElementById('posterPreview').src = "https://images.unsplash.com/photo-1607604053594-86421d8b4761?w=400";
+    } catch (error) {
+      console.error(error);
+      showMessage('Error al insertar', error.message || 'Revisa la consola', true);
+    }
+  });
+
+  // ---- BUSCAR ----
+  document.querySelector('.btn.buscar').addEventListener('click', async function(e) {
+    e.preventDefault();
+    let id = document.getElementById('noPelicula').value.trim();
+    id = id ? parseInt(id, 10).toString() : '';
+    if (!id || isNaN(id) || id <= 0) { showMessage('Valor inválido', 'Ingresa un número válido', true); return; }
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`);
+      const data = await response.json();
+      showMessage('Encontrado', `ID: ${data.id}\nTítulo: ${data.title.substring(0, 60)}...`);
+    } catch (error) {
+      console.error(error);
+      showMessage('No encontrado', `No existe registro con ID ${id}`, true);
+    }
+  });
+
+  // ---- MODIFICAR ----
+  document.querySelector('.btn.modificar').addEventListener('click', async function(e) {
+    e.preventDefault();
+    let id = document.getElementById('noPelicula').value.trim();
+    id = id ? parseInt(id, 10).toString() : '';
+    const data = getFormData();
+    if (!id || isNaN(id)) { showMessage('Requerido', 'Ingresa un ID válido', true); return; }
+    if (!data.generos || !data.sinopsis) { showMessage('Faltan campos', 'Completa Géneros y Sinopsis', true); return; }
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ id: Number(id), ...data, userId: 1 }),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+      });
+      const result = await response.json();
+      showMessage('Éxito', `Modificado ID ${result.id}`);
+    } catch (error) {
+      console.error(error);
+      showMessage('Error al modificar', error.message || 'Revisa consola', true);
+    }
+  });
+
+  // ---- ELIMINAR ----
+  document.querySelector('.btn.eliminar').addEventListener('click', async function(e) {
+    e.preventDefault();
+    let id = document.getElementById('noPelicula').value.trim();
+    id = id ? parseInt(id, 10).toString() : '';
+    if (!id || isNaN(id)) { showMessage('Requerido', 'Ingresa un ID válido', true); return; }
+    if (!confirm(`¿Eliminar película ID ${id}?`)) return;
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        showMessage('Éxito', `Eliminado ID ${id}`);
+        form.reset();
+        document.getElementById('posterPreview').src = "https://images.unsplash.com/photo-1607604053594-86421d8b4761?w=400";
+      } else throw new Error(`HTTP ${response.status}`);
+    } catch (error) {
+      console.error(error);
+      showMessage('Error al eliminar', error.message || 'Revisa consola', true);
+    }
+  });
+</script>
+
+</body>
+</html>
