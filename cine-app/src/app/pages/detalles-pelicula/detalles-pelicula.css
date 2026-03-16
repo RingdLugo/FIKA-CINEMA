@@ -1,0 +1,185 @@
+/* CONTENEDOR PRINCIPAL */
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+}
+
+/* IZQUIERDA */
+.left {
+    flex: 2;
+}
+
+.description {
+    text-align: justify;
+}
+
+.info {
+    margin-top: 15px;
+}
+
+/* DERECHA */
+.right {
+    flex: 1;
+    background-color: #e8e3d1;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.dates {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.times {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Modern Button Styles */
+.dates button,
+.times button,
+.day {
+    position: relative;
+    margin: 5px;
+    padding: 10px 16px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dates button::before,
+.times button::before,
+.day::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.dates button:hover,
+.times button:hover,
+.day:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 1);
+}
+
+.dates button:active,
+.times button:active,
+.day:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.schedule h3 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* BOTONES FINALES */
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 160px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #f5c542 0%, #f1c40f 100%);
+    color: #2b2b2b;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(245, 197, 66, 0.4);
+    background: linear-gradient(135deg, #f1c40f 0%, #e2b823 100%);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(108, 117, 125, 0.4);
+    background: linear-gradient(135deg, #5a6268, #495057);
+}
+
+/* RESPONSIVE PARA CELULAR */
+@media (max-width: 768px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 100%;
+    }
+
+    .video iframe {
+        height: 250px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .actions button, .actions a {
+        width: 100%;
+    }
+}
+
+.selected {
+    background: linear-gradient(135deg, #f5c542, #f1c40f) !important;
+    color: #2b2b2b !important;
+    box-shadow: 0 6px 20px rgba(245, 197, 66, 0.4) !important;
+    transform: scale(1.05) !important;
+}
+
+.selected::before {
+    left: 100%;
+    animation: shine 0.6s ease-in-out;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
