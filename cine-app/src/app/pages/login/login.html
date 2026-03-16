@@ -1,0 +1,227 @@
+
+<div style="background-color: #fdfaf0;">
+
+    <!-- ---- Navbar ---- -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-fika-pastel sticky-top border-top border-4 border-primary border-bottom border-2 border-dark shadow-sm">
+        <div class="container-fluid px-4 py-2">
+            <a class="navbar-brand d-flex align-items-center justify-content-center mx-auto mx-lg-0 ms-lg-4" routerLink="/inicio">
+                <img src="assets/img/logo-fika.png" alt="Fika Cinema Logo" class="logo-fika">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium fs-5" routerLink="/inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium fs-5" routerLink="/inicio">Cartelera</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium fs-5" href="#">Próximamente</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium fs-5" href="#">Promociones</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark fw-medium fs-5" href="#">Contacto</a></li>
+                </ul>
+
+                <div class="ms-lg-4 d-flex align-items-center">
+                    <select class="form-select select-ciudad me-3">
+                        <option selected>Pachuca</option>
+                        <option>Tizayuca</option>
+                        <option>Tulancingo</option>
+                    </select>
+                    <a routerLink="/login" class="btn btn-danger btn-sesion">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ---- Slider principal ---- -->
+    <section class="slider-section">
+        <div id="sliderPrincipal" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+            <!-- Indicadores -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="3"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="4"></button>
+            </div>
+
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active" style="background-image: url('assets/img/laniñademisojos.png'); background-size: cover; background-position: center;">
+                    <div class="overlay-slider"></div>
+                    <div class="container h-100 d-flex align-items-center">
+                        <div class="slider-content d-flex align-items-center z-index-2">
+                            <img src="assets/img/laniñademisojos.png" class="poster-slider d-none d-md-block" alt="Poster">
+                            <div class="ms-md-4 text-white">
+                                <p class="tag-destacada">DESTACADA DE LA SEMANA <i class="bi bi-star-fill text-warning"></i></p>
+                                <h1 class="movie-title">LA NIÑA DE MIS OJOS</h1>
+                                <div class="mt-4">
+                                    <a routerLink="/detalles-pelicula" class="btn btn-fika-danger me-2">COMPRAR BOLETOS</a>
+                                    <a href="#" class="btn btn-fika-outline">VER TRAILER</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Similar for other slides, abbreviated for brevity -->
+                <div class="carousel-item" style="background-image: url('assets/img/cumbres.png'); background-size: cover; background-position: center;">
+                    <div class="overlay-slider"></div>
+                    <div class="container h-100 d-flex align-items-center">
+                        <div class="slider-content d-flex align-items-center z-index-2">
+                            <img src="assets/img/cumbres.png" class="poster-slider d-none d-md-block" alt="Poster">
+                            <div class="ms-md-4 text-white">
+                                <p class="tag-destacada">DESTACADA <i class="bi bi-star-fill text-warning"></i></p>
+                                <h1 class="movie-title">CUMBRES BORRASCOSAS</h1>
+                                <div class="mt-4">
+                                    <a routerLink="/detalles-pelicula" class="btn btn-fika-danger me-2">COMPRAR BOLETOS</a>
+                                    <a href="#" class="btn btn-fika-outline">VER TRAILER</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add remaining slides 3-5 similarly -->
+                <div class="carousel-item" style="background-image: url('assets/img/intensamente.png'); background-size: cover; background-position: center;"><!-- abbreviated --></div>
+                <div class="carousel-item" style="background-image: url('assets/img/scream7.png'); background-size: cover; background-position: center;"><!-- abbreviated --></div>
+                <div class="carousel-item" style="background-image: url('assets/img/goat.png'); background-size: cover; background-position: center;"><!-- abbreviated --></div>
+            </div>
+
+            <!-- Controles -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="prev">
+                <i class="bi bi-chevron-left fs-1"></i>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="next">
+                <i class="bi bi-chevron-right fs-1"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Rest of sections: flecha, banners, filter bar, cartelera, footer -->
+    <!-- Flecha hacia cartelera -->
+    <div class="ver-cartelera-container text-center py-3">
+        <a href="#banners-inicio" class="text-decoration-none impulso-link">
+            <p class="mb-0 text-dark fw-bold" style="font-size: 1.5rem;">Ver cartelera</p>
+            <i class="bi bi-arrow-down fs-3 text-secondary flecha-animada"></i>
+        </a>
+    </div>
+
+    <!-- Banners y combos -->
+    <section id="banners-inicio" class="container pb-4">
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-5">
+                <div id="comboSlider" class="carousel slide rounded shadow-sm overflow-hidden" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="assets/img/banersale1.png" class="d-block w-100 banner-hover" alt="Combo 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/banersale2.png" class="d-block w-100 banner-hover" alt="Combo 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/banersale3.png" class="d-block w-100 banner-hover" alt="Combo 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#comboSlider" data-bs-slide="prev">
+                        <i class="bi bi-chevron-left fs-1"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#comboSlider" data-bs-slide="next">
+                        <i class="bi bi-chevron-right fs-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <a href="#">
+                    <img src="assets/img/banner-combo-compartir.png" class="img-fluid rounded shadow-sm w-100 banner-hover" alt="Combo Compartir">
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <a href="#">
+                    <img src="assets/img/banner-kpop.png" class="img-fluid rounded shadow-sm w-100 banner-hover" alt="K-Pop Idol">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div id="cartelera-target" class="filter-bar bg-white py-3 border-top border-bottom shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <h5 class="m-0 fw-bold text-secondary fs-2">ESTRENOS</h5>
+            <div class="links-filtros d-flex gap-4">
+                <a routerLink="/venta-boletos" class="text-dark text-decoration-none fw-bold fs-5">Ver todos los horarios</a>
+                <a routerLink="/encontrar-cine" class="text-dark text-decoration-none fw-bold border-start ps-3 fs-5">Ver cartelera por zona</a>
+                <a routerLink="/encontrar-cine" class="text-dark text-decoration-none fw-bold border-start ps-3 fs-5">Seleccionar otro cine</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cartelera section -->
+    <section class="cartelera-section py-4">
+        <div class="container">
+            <p class="text-muted small fw-bold mb-3">TODAS LAS PELÍCULAS</p>
+            <div id="peliculasSlider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center g-4">
+                            <div class="col-6 col-md-2">
+                                <div class="poster-card">
+                                    <a routerLink="/detalles-pelicula">
+                                        <img src="assets/img/estreno1.png" class="img-fluid poster-cartelera">
+                                    </a>
+                                    <div class="badge-estado preventa">ESTRENO</div>
+                                </div>
+                            </div>
+                            <!-- Add other 4 posters -->
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno2.png" class="img-fluid poster-cartelera"></a><div class="badge-estado preventa">ESTRENO</div></div></div>
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno3.png" class="img-fluid poster-cartelera"></a></div></div>
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno4.png" class="img-fluid poster-cartelera"></a><div class="badge-estado preventa">PREVENTA</div></div></div>
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno5.png" class="img-fluid poster-cartelera"></a><div class="badge-estado preventa">PRE-ESTRENO</div></div></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center g-4">
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno6.png" class="img-fluid poster-cartelera"></a><div class="badge-estado estreno">ESTRENO</div></div></div>
+                            <div class="col-6 col-md-2"><div class="poster-card"><a routerLink="/detalles-pelicula"><img src="assets/img/estreno7.png" class="img-fluid poster-cartelera"></a></div></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#peliculasSlider" data-bs-slide="prev">
+                    <i class="bi bi-chevron-left fs-1 text-dark"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#peliculasSlider" data-bs-slide="next">
+                    <i class="bi bi-chevron-right fs-1 text-dark"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (override or additional) -->
+    <footer class="footer-section mt-5 py-4 bg-dark text-white">
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-warning">Sobre FIKA</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">Sobre FIKA</a></li>
+                        <li><a href="#">Factura Electrónica</a></li>
+                        <li><a href="#">Ventas Corporativas</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold text-warning">Ayuda</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">Política de precios</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3 text-center">
+                    <img src="assets/img/logo1.png" width="120">
+                    <img src="assets/img/logo2.png" width="120">
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+

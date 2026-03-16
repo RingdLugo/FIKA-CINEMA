@@ -1,0 +1,54 @@
+
+
+<div class="container">
+    <div class="content-box">
+        <h1>¡Escoge tu cine de preferencia!</h1>
+        <p class="subtitle">
+            Usaremos tus datos para ofrecerte las mejores películas en los FIKA Cinema más cercanos.
+        </p>
+
+        <div class="form-box">
+            <div class="form-group">
+                <label>Tu Estado:</label>
+                <select id="estado" [(ngModel)]="estadoSeleccionado" (change)="onEstadoChange()">
+                    <option value="">Selecciona un estado</option>
+                    @for (estado of estados; track estado.id) {
+                        <option [value]="estado.id">{{ estado.nombre }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Ciudad:</label>
+                <select id="ciudad" [(ngModel)]="ciudadSeleccionada" [disabled]="!estadoSeleccionado" (change)="onCiudadChange()">
+                    <option value="">Selecciona una ciudad</option>
+                    @for (ciudad of ciudades; track ciudad) {
+                        <option [value]="ciudad">{{ ciudad }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Cine favorito:</label>
+                <select id="cine" [(ngModel)]="cineSeleccionado" [disabled]="!ciudadSeleccionada">
+                    <option value="">Selecciona un cine</option>
+                    @for (cine of cines; track cine) {
+                        <option [value]="cine">{{ cine }}</option>
+                    }
+                </select>
+            </div>
+            
+            <button class="btn-primary w-100 mt-3" (click)="onSubmit()">Encontrar</button>
+
+            <div id="resultado" class="resultado mt-3">
+                @if (mensajeError) {
+                    <p class="text-danger fw-bold">{{ mensajeError }}</p>
+                }
+                @if (mensajeExito) {
+                    <p class="text-success fw-bold">{{ mensajeExito }}</p>
+                    <a routerLink="/inicio" class="btn-primary w-100 mt-2">Ver horarios</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

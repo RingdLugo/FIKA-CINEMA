@@ -1,0 +1,180 @@
+<div class="cartelera-container">
+    <!-- Slider section - Dynamic from movies -->
+    <section class="slider-section">
+        <div id="sliderPrincipal" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                @for (slide of sliderMovies; track slide.id; let i = $index) {
+                    <button type="button" data-bs-target="#sliderPrincipal" [attr.data-bs-slide-to]="i" [class.active]="i === 0"></button>
+                }
+            </div>
+            <div class="carousel-inner">
+                @for (slide of sliderMovies; track slide.id; let i = $index) {
+                    <div class="carousel-item" [class.active]="i === 0">
+                        <div class="overlay-slider"></div>
+                        <div class="container h-100 d-flex align-items-center">
+                            <div class="slider-content d-flex align-items-center z-index-2">
+                                <img [src]="slide.poster" [alt]="slide.title" class="poster-slider d-none d-md-block">
+                                <div class="ms-md-4 text-white">
+                                    <p class="tag-destacada">DESTACADA <i class="bi bi-star-fill text-warning"></i></p>
+                                    <h1 class="movie-title">{{ slide.title }}</h1>
+                                    <div class="mt-4">
+                                        <a [routerLink]="['/detalles-pelicula', slide.id]" class="btn btn-fika-danger me-2">COMPRAR BOLETOS</a>
+                                        <a href="#" class="btn btn-fika-outline">VER TRAILER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="prev">
+                <i class="bi bi-chevron-left fs-1"></i>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="next">
+                <i class="bi bi-chevron-right fs-1"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Flecha hacia cartelera -->
+    <div class="ver-cartelera-container text-center py-3">
+        <a href="#banners-inicio" class="text-decoration-none impulso-link">
+            <p class="mb-0 text-dark fw-bold" style="font-size: 1.5rem;">Ver cartelera</p>
+            <i class="bi bi-arrow-down fs-3 text-secondary flecha-animada"></i>
+        </a>
+    </div>
+
+    <!-- Banners y combos -->
+    <section id="banners-inicio" class="container pb-4">
+        <div class="row g-3">
+            <div class="col-md-6 col-lg-5">
+                <div id="comboSlider" class="carousel slide rounded shadow-sm overflow-hidden" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="assets/img/banersale1.png" class="d-block w-100 banner-hover" alt="Combo 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/banersale2.png" class="d-block w-100 banner-hover" alt="Combo 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/banersale3.png" class="d-block w-100 banner-hover" alt="Combo 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#comboSlider" data-bs-slide="prev">
+                        <i class="bi bi-chevron-left fs-1"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#comboSlider" data-bs-slide="next">
+                        <i class="bi bi-chevron-right fs-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <a href="#">
+                    <img src="assets/img/banner-combo-compartir.png" class="img-fluid rounded shadow-sm w-100 banner-hover" alt="Combo Compartir">
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <a href="#">
+                    <img src="assets/img/banner-kpop.png" class="img-fluid rounded shadow-sm w-100 banner-hover" alt="K-Pop Idol">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div id="cartelera-target" class="filter-bar bg-white py-3 border-top border-bottom shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <h5 class="m-0 fw-bold text-secondary fs-2">ESTRENOS</h5>
+            <div class="links-filtros d-flex gap-4">
+                <a routerLink="/venta-boletos" class="text-dark text-decoration-none fw-bold fs-5">Ver todos los horarios</a>
+                <a routerLink="/encontrar-cine" class="text-dark text-decoration-none fw-bold border-start ps-3 fs-5">Ver cartelera por zona</a>
+                <a routerLink="/encontrar-cine" class="text-dark text-decoration-none fw-bold border-start ps-3 fs-5">Seleccionar otro cine</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Posters slider - Dynamic -->
+    <section class="cartelera-section py-4">
+        <div class="container">
+            <p class="text-muted small fw-bold mb-3">TODAS LAS PELÍCULAS</p>
+            <div id="peliculasSlider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (group of posterGroups; track $index; let groupIndex = $index) {
+                        <div class="carousel-item" [class.active]="groupIndex === 0">
+                            <div class="row justify-content-center g-4">
+                                @for (movie of group; track movie.id) {
+                                    <div class="col-6 col-md-2">
+                                        <div class="poster-card">
+                                            <a [routerLink]="['/detalles-pelicula', movie.id]">
+                                                <img [src]="movie.poster" [alt]="movie.title" class="img-fluid poster-cartelera">
+                                            </a>
+                                            <div class="badge-estado">ESTRENO</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#peliculasSlider" data-bs-slide="prev">
+                    <i class="bi bi-chevron-left fs-1 text-dark"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#peliculasSlider" data-bs-slide="next">
+                    <i class="bi bi-chevron-right fs-1 text-dark"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Existing content below - Make dynamic too -->
+    <!-- Selected Cine Filter Bar -->
+    @if (selectedCine()) {
+        <div class="filter-bar bg-primary text-white py-3">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="bi bi-geo-alt-fill me-2"></i>
+                        <span class="fw-bold">Mostrando funciones en: <strong>{{ selectedCine()! }}</strong></span>
+                    </div>
+                    <button class="btn btn-outline-light btn-sm" (click)="clearCine()">
+                        Cambiar cine <i class="bi bi-arrow-right ms-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Main Cartelera - Dynamic -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+                <h2 class="section-title mb-4">ESTRENOS</h2>
+                <div class="row g-4">
+                    @for (movie of estrenoMovies; track movie.id) {
+                        <div class="col-md-6 col-lg-4">
+                            <div class="pelicula-card">
+                                <img [src]="movie.poster" class="card-img-top" [alt]="movie.title">
+                                <div class="card-body">
+                                    <h5>{{ movie.title }}</h5>
+                                    <div class="pelicula-meta">
+                                        <span class="badge bg-warning">2D</span>
+                                        <span class="text-muted ms-2">Español</span>
+                                    </div>
+                                    <a [routerLink]="['/detalles-pelicula', movie.id]" class="btn btn-primary w-100 mt-3">Ver horarios</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="promo-card sticky-top" style="top: 100px;">
+                    <img src="assets/img/banersale1.png" class="img-fluid rounded" alt="Promo 1">
+                </div>
+                <div class="promo-card mt-4">
+                    <img src="assets/img/banersale2.png" class="img-fluid rounded" alt="Promo 2">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

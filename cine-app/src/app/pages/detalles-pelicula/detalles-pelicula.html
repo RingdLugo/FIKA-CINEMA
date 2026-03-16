@@ -1,0 +1,92 @@
+<div class="container mt-4 pt-2">
+    <a routerLink="/inicio" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver a Cartelera
+    </a>
+</div>
+
+<header>
+    @if (currentMovie()) {
+        <h1>{{ currentMovie()!.title }}</h1>
+    }
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container">
+
+    <!-- LADO IZQUIERDO -->
+    <div class="left">
+
+        <div class="video">
+            @if (currentMovie()) {
+                <iframe width="100%" height="300"
+                    [src]="currentMovie()!.trailer"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            }
+        </div>
+
+        @if (currentMovie()) {
+            <h2>{{ currentMovie()!.title }}</h2>
+
+            <p class="description">
+                {{ currentMovie()!.description }}
+            </p>
+
+            <div class="info">
+                <p><strong>Clasificación:</strong> {{ currentMovie()!.classification }}</p>
+                <p><strong>Director:</strong> {{ currentMovie()!.director }}</p>
+                <p><strong>Actores:</strong> {{ currentMovie()!.actors }}</p>
+            </div>
+        }
+    </div>
+
+    <!-- LADO DERECHO -->
+    <div class="right">
+
+        <div class="dates">
+            @for (day of days; track day.id) {
+                <button class="day" [class.selected]="selectedDay() === day.id" (click)="selectDay(day.id)">
+                    {{ day.name }}
+                </button>
+            }
+        </div>
+
+        <div class="schedule">
+            @if (currentSchedule().espanol.length > 0) {
+                <h3>Premium Español</h3>
+                <div class="times" id="seccionEspanol">
+                    @for (time of currentSchedule().espanol; track time) {
+                        <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                    }
+                </div>
+            }
+
+            @if (currentSchedule().sub.length > 0) {
+                <h3>Premium Subtitulada</h3>
+                <div class="times" id="seccionSub">
+                    @for (time of currentSchedule().sub; track time) {
+                        <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                    }
+                </div>
+            }
+
+            @if (currentSchedule().regular.length > 0) {
+                <h3>Regular Español</h3>
+                <div class="times" id="regularSection">
+                    @for (time of currentSchedule().regular; track time) {
+                        <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="actions">
+            <a routerLink="/venta-boletos" class="btn-primary">CONTINUAR</a>
+            <a routerLink="/" id="cancelBtn" class="btn-secondary">CANCELAR</a>
+        </div>
+
+    </div>
+
+</div>
