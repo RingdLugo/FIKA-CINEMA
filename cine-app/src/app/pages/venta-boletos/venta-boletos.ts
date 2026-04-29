@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { SupabaseService } from '../../services/supabase.service';
+import { CineService } from '../../services/cine.service';
 
 @Component({
   selector: 'app-venta-boletos',
@@ -9,6 +11,9 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './venta-boletos.css',
 })
 export class VentaBoletos {
+  supabaseService = inject(SupabaseService);
+  cineService = inject(CineService);
+
   rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
   columns = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
   
@@ -57,5 +62,37 @@ export class VentaBoletos {
 
   get totalAmount() {
     return this.selectedSeats.size * this.ticketPrice;
+  }
+
+  async confirmarCompra() {
+    if (this.selectedSeats.size === 0) return;
+
+    const compra = {
+      user_id: 'usuario_invitado', // ID temporal de prueba
+      pelicula_id: '12345', // En un futuro, esto vendrá dinámicamente de la película seleccionada
+      pelicula_titulo: 'Cumbres Borrascosas', 
+      asientos: Array.from(this.selectedSeats),
+      total: this.totalAmount,
+      fecha_funcion: 'Miercoles 19, 09:45 pm',
+      cine: 'Galerías Pachuca',
+      sala: '5',
+      created_at: new Date().toISOString()
+    };
+
+    try {
+      const { error } = await this.supabaseService.registrarCompra(compra);
+      
+      if (error) throw error;
+
+      alert(`¡Compra confirmada! Tus asientos ${this.selectedSeatsArray.join(', ')} han sido reservados.`);
+      
+      // Mover los seleccionados a ocupados y limpiar seleccionados
+      this.selectedSeats.forEach(seat => this.occupiedSeats.add(seat));
+      this.selectedSeats.clear();
+      
+    } catch (err: any) {
+      console.error('Error al registrar compra:', err);
+      alert('Hubo un problema procesando tu compra. Inténtalo de nuevo.');
+    }
   }
 }

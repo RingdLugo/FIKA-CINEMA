@@ -49,4 +49,11 @@ export class SupabaseService {
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
   }
+
+  async obtenerTodasLasCompras() {
+    return await this.supabase
+      .from('compras')
+      .select('*')
+      .order('created_at', { ascending: false });
+  }
 }
