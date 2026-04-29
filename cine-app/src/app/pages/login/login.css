@@ -327,9 +327,10 @@ body {
     margin-bottom: 20px;
 }
 
+/* Legacy poster-cartelera style - overridden by inicio.css for home page */
 .poster-cartelera {
-    width: 100%;
-    height: 280px;
+    width: 20px;
+    height: 10px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: var(--shadow-lg);
@@ -433,7 +434,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .poster-cartelera { height: 200px; }
     .navbar-brand img.logo-fika { max-height: 70px; }
     .navbar-collapse {
         background-color: #fdfaf0;

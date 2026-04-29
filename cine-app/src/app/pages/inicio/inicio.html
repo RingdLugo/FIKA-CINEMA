@@ -9,7 +9,15 @@
             </div>
             <div class="carousel-inner">
                 @for (slide of sliderMovies; track slide.id; let i = $index) {
-                    <div class="carousel-item" [class.active]="i === 0">
+<div class="carousel-item" [class.active]="i === 0">
+                        <!-- Trailer video background -->
+                        <iframe class="slider-video" 
+[src]="safeTrailers()[i]"
+                                frameborder="0" 
+                                allowfullscreen 
+                                allow="autoplay; encrypted-media" 
+                                referrerpolicy="strict-origin-when-cross-origin">
+                        </iframe>
                         <div class="overlay-slider"></div>
                         <div class="container h-100 d-flex align-items-center">
                             <div class="slider-content d-flex align-items-center z-index-2">
@@ -19,7 +27,7 @@
                                     <h1 class="movie-title">{{ slide.title }}</h1>
                                     <div class="mt-4">
                                         <a [routerLink]="['/detalles-pelicula', slide.id]" class="btn btn-fika-danger me-2">COMPRAR BOLETOS</a>
-                                        <a href="#" class="btn btn-fika-outline">VER TRAILER</a>
+                                        <a [routerLink]="['/detalles-pelicula', slide.id]" class="btn btn-fika-outline">VER TRAILER</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,14 +104,14 @@
     <!-- Posters slider - Dynamic -->
     <section class="cartelera-section py-4">
         <div class="container">
-            <p class="text-muted small fw-bold mb-3">TODAS LAS PELÍCULAS</p>
+
             <div id="peliculasSlider" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @for (group of posterGroups; track $index; let groupIndex = $index) {
                         <div class="carousel-item" [class.active]="groupIndex === 0">
                             <div class="row justify-content-center g-4">
                                 @for (movie of group; track movie.id) {
-                                    <div class="col-6 col-md-2">
+<div class="col-6 col-md-4">
                                         <div class="poster-card">
                                             <a [routerLink]="['/detalles-pelicula', movie.id]">
                                                 <img [src]="movie.poster" [alt]="movie.title" class="img-fluid poster-cartelera">
@@ -148,7 +156,7 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-lg-8 mb-5">
-                <h2 class="section-title mb-4">ESTRENOS</h2>
+                <h2 class="section-title mb-4">TODAS LAS PELICULAS</h2>
                 <div class="row g-4">
                     @for (movie of estrenoMovies; track movie.id) {
                         <div class="col-md-6 col-lg-4">
@@ -175,6 +183,33 @@
                     <img src="assets/img/banersale2.png" class="img-fluid rounded" alt="Promo 2">
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Próximos Estrenos Section -->
+    <div class="container my-5">
+        <h2 class="section-title mb-4">Próximos Estrenos</h2>
+        <div class="row g-4">
+            @for (movie of upcomingMovies; track movie.id) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="pelicula-card">
+                        <img [src]="movie.poster" class="card-img-top" [alt]="movie.title">
+                        <div class="card-body">
+                            <h5>{{ movie.title }}</h5>
+                            <div class="pelicula-meta">
+                                <span class="badge bg-info">Próximamente</span>
+                                <span class="text-muted ms-2">Estreno pronto</span>
+                            </div>
+                            <a [routerLink]="['/detalles-pelicula', movie.id]" class="btn btn-primary w-100 mt-3">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            @empty {
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Próximamente más estrenos...</p>
+                </div>
+            }
         </div>
     </div>
 </div>

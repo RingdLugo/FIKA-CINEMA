@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { CineService, Movie, Schedules } from '../../services/cine.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -14,10 +15,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class DetallesPelicula {
   cineService = inject(CineService);
   route = inject(ActivatedRoute);
+  sanitizer = inject(DomSanitizer);
 
   paramMap = toSignal(this.route.paramMap, { initialValue: null! });
   movieId = computed(() => this.paramMap()?.get('id') || 'cumbres');
   currentMovie = computed(() => this.cineService.getMovieById(this.movieId()));
+  safeDescription = computed(() => this.sanitizer.bypassSecurityTrustHtml(this.currentMovie()?.description || ''));
+  safeTrailer = computed(() => this.sanitizer.bypassSecurityTrustResourceUrl(this.currentMovie()?.trailer || ''));
 
   selectedDay = signal('lunes');
   selectedTime = signal('');

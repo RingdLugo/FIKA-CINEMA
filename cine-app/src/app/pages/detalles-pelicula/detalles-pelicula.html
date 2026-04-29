@@ -18,20 +18,14 @@
 
         <div class="video">
             @if (currentMovie()) {
-                <iframe width="100%" height="300"
-                    [src]="currentMovie()!.trailer"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <iframe width="100%" height="300"\n                    [src]="safeTrailer()"\n                    frameborder="0"\n                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\n                    allowfullscreen>\n                </iframe>
             }
         </div>
 
         @if (currentMovie()) {
             <h2>{{ currentMovie()!.title }}</h2>
 
-            <p class="description">
-                {{ currentMovie()!.description }}
+            <p class="description" [innerHTML]="safeDescription()">
             </p>
 
             <div class="info">
