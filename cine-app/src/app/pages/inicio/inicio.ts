@@ -52,6 +52,10 @@ export class Inicio {
     return this.movies().slice(0, 2);
   }
 
+  get preventaMovies() {
+    return this.movies().filter(m => m.isPresale);
+  }
+
   get upcomingMovies() {
     // Exclude used movies: posterGroups(0-7), sliderMovies(7-12), estrenoMovies(subset)
     return this.movies().slice(12);

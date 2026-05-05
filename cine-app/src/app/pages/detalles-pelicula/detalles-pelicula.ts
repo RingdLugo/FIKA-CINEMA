@@ -84,8 +84,11 @@ export class DetallesPelicula {
   }
 
   currentSchedule = computed(() => {
+    if (this.currentMovie()?.isUpcoming) {
+      return { espanol: [], sub: [], regular: [] };
+    }
     const day = this.selectedDay();
     const movieSchedules = this.currentMovie()?.schedules?.[day];
-    return movieSchedules || this.genericSchedules[day] || {espanol: [], sub: [], regular: []};
+    return movieSchedules || this.genericSchedules[day] || { espanol: [], sub: [], regular: [] };
   });
 }

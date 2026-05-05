@@ -152,6 +152,26 @@
         </div>
     }
 
+    <!-- Presale Movies -->
+    @if (preventaMovies.length > 0) {
+        <div class="container my-5">
+            <h2 class="section-title mb-4">PREVENTA</h2>
+            <div class="row g-4">
+                @for (movie of preventaMovies; track movie.id) {
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="poster-card poster-3d">
+                            <a [routerLink]="['/detalles-pelicula', movie.id]">
+                                <img [src]="movie.poster" [alt]="movie.title" class="img-fluid rounded shadow-lg">
+                                <div class="badge-estado preventa">PREVENTA</div>
+                            </a>
+                        </div>
+                        <h6 class="mt-2 fw-bold text-uppercase text-center small">{{ movie.title }}</h6>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
     <!-- Main Cartelera - Dynamic -->
     <div class="container my-5">
         <div class="row">

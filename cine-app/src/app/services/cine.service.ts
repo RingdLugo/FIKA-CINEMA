@@ -17,6 +17,14 @@ export interface Movie {
   director: string;
   actors: string;
   classification: string;
+  originalTitle?: string;
+  releaseDate?: string;
+  genre?: string;
+  country?: string;
+  duration?: string;
+  distributor?: string;
+  isUpcoming?: boolean;
+  isPresale?: boolean;
   schedules?: Record<string, Schedules>;
 }
 
@@ -45,7 +53,7 @@ export class CineService {
 
     this.http.get<any>(url).subscribe({
       next: (response) => {
-        const tmdbMovies = response.results.map((m: any) => ({
+        const tmdbMovies = response.results.map((m: any, index: number) => ({
           id: m.id.toString(),
           title: m.title,
           poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
@@ -54,7 +62,16 @@ export class CineService {
           director: 'Por definir',
           actors: 'Por definir',
           classification: m.adult ? 'C' : 'B',
+          originalTitle: m.original_title,
+          releaseDate: m.release_date,
+          genre: 'Acción / Aventura',
+          country: 'Estados Unidos',
+          duration: '120 min',
+          distributor: 'FIKA Distribution',
+          isUpcoming: index >= 12,
+          isPresale: index >= 10 && index < 12,
           schedules: {
+            'FIKA Sat': { espanol: ['12:00', '15:00', '19:00'], sub: ['21:00'], regular: [] },
             'FIKA Las Torres': { espanol: ['14:00', '18:00'], sub: ['16:00', '20:00'], regular: [] },
             'FIKA Plaza Sol': { espanol: ['13:00', '17:00'], sub: [], regular: ['15:00', '19:00'] }
           }
