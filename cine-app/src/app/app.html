@@ -1,0 +1,58 @@
+<!-- ENCABEZADO GLOBAL -->
+<nav class="navbar border-bottom nav-fondo nav-sombra d-flex justify-content-between px-4 py-2 sticky-top bg-light">
+  <div class="d-flex align-items-center gap-3">
+    <a routerLink="/" class="navbar-brand">
+      <img src="assets/img/fikacinema.png" alt="Logo Fika Cinema" style="height: 50px; object-fit: contain;">
+    </a>
+  </div>
+  
+  <div class="d-flex gap-3 align-items-center">
+    @if (selectedCine()) {
+      <div class="cine-indicator bg-success text-white px-3 py-1 rounded-pill small me-3">
+        <i class="bi bi-building me-1"></i>{{ selectedCine()! }}
+      </div>
+    }
+    <a routerLink="/inicio" class="nav-btn">Cartelera</a>
+    <a routerLink="/encontrar-cine" class="nav-btn"><i class="bi bi-search me-2"></i>Buscar Cine</a>
+    <a routerLink="/login" class="nav-btn">Mi Cuenta</a>
+  </div>
+</nav>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="flex-grow-1" style="min-height: calc(100vh - 300px);">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- PIE DE P�GINA GLOBAL -->
+<footer class="footer-section mt-auto py-5 bg-dark text-white">
+  <div class="container">
+      <div class="row text-center text-md-start">
+          <div class="col-md-4 mb-4 mb-md-0">
+              <h6 class="fw-bold text-uppercase mb-3 text-warning">Sobre FIKA</h6>
+              <ul class="list-unstyled small">
+                  <li class="mb-2"><a routerLink="/sobre" class="text-white text-decoration-none footer-link">Sobre FIKA</a></li>
+                  <li class="mb-2"><a routerLink="/facturacion" class="text-white text-decoration-none footer-link">Factura Electrónica</a></li>
+                  <li class="mb-2"><a routerLink="/ventas" class="text-white text-decoration-none footer-link">Ventas Corporativas</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0">
+              <h6 class="fw-bold text-uppercase mb-3 text-warning">Ayuda</h6>
+              <ul class="list-unstyled small">
+                  <li class="mb-2"><a routerLink="/precios" class="text-white text-decoration-none footer-link">Política de precios</a></li>
+                  <li class="mb-2"><a routerLink="/terminos" class="text-white text-decoration-none footer-link">Términos y condiciones</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4 mb-3 text-center text-md-end d-flex flex-column align-items-center align-items-md-end">
+              <h6 class="fw-bold text-uppercase mb-3 text-warning">Descarga la App</h6>
+              <div class="d-flex gap-2 justify-content-center justify-content-md-end">
+                <img src="assets/img/appstore.png" width="100" alt="App Store" class="app-btn-img" style="cursor: pointer;">
+                <img src="assets/img/googleplay.png" width="110" alt="Google Play" class="app-btn-img" style="cursor: pointer;">
+              </div>
+          </div>
+      </div>
+      <hr class="border-secondary mt-4 mb-4">
+      <div class="text-center small text-secondary">
+        &copy; 2026 FIKA Cinema. Todos los derechos reservados.
+      </div>
+  </div>
+</footer>
