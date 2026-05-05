@@ -9,15 +9,15 @@
             </div>
             <div class="carousel-inner">
                 @for (slide of sliderMovies; track slide.id; let i = $index) {
-<div class="carousel-item" [class.active]="i === 0">
-                        <!-- Trailer video background -->
-                        <iframe class="slider-video" 
-[src]="safeTrailers()[i]"
+                    <div class="carousel-item" [class.active]="i === 0">
+                        <div class="video-container">
+                            <iframe class="slider-video" 
+                                [src]="safeTrailers()[i]"
                                 frameborder="0" 
-                                allowfullscreen 
                                 allow="autoplay; encrypted-media" 
-                                referrerpolicy="strict-origin-when-cross-origin">
-                        </iframe>
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                         <div class="overlay-slider"></div>
                         <div class="container h-100 d-flex align-items-center">
                             <div class="slider-content d-flex align-items-center z-index-2">

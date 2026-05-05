@@ -49,18 +49,40 @@ export class CineService {
           id: m.id.toString(),
           title: m.title,
           poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
-          trailer: '', // TMDB requiere otro endpoint para videos
+          trailer: '', // Se llenará abajo
           description: m.overview,
-          director: 'Por definir', // TMDB requiere endpoint de créditos
+          director: 'Por definir',
           actors: 'Por definir',
           classification: m.adult ? 'C' : 'B',
           schedules: {
-            'Cinépolis': { espanol: ['14:00', '18:00'], sub: ['16:00', '20:00'], regular: [] },
-            'Cinemex': { espanol: ['13:00', '17:00'], sub: [], regular: ['15:00', '19:00'] }
+            'FIKA Las Torres': { espanol: ['14:00', '18:00'], sub: ['16:00', '20:00'], regular: [] },
+            'FIKA Plaza Sol': { espanol: ['13:00', '17:00'], sub: [], regular: ['15:00', '19:00'] }
           }
         }));
+
+        // Obtener trailers para las primeras 15 películas
+        tmdbMovies.slice(0, 15).forEach((movie: any) => {
+          const videoUrl = `${this.tmdbUrl}/movie/${movie.id}/videos?api_key=${environment.tmdbApiKey}&language=es-MX`;
+          this.http.get<any>(videoUrl).subscribe(videoRes => {
+            const trailer = videoRes.results.find((v: any) => v.type === 'Trailer' && v.site === 'YouTube');
+            if (trailer) {
+              movie.trailer = `https://www.youtube.com/embed/${trailer.key}`;
+              this.movies.set([...tmdbMovies]); // Trigger update
+            } else {
+              // Si no hay en español, buscar en inglés
+              const videoUrlEn = `${this.tmdbUrl}/movie/${movie.id}/videos?api_key=${environment.tmdbApiKey}`;
+              this.http.get<any>(videoUrlEn).subscribe(videoResEn => {
+                const trailerEn = videoResEn.results.find((v: any) => v.type === 'Trailer' && v.site === 'YouTube');
+                if (trailerEn) {
+                  movie.trailer = `https://www.youtube.com/embed/${trailerEn.key}`;
+                  this.movies.set([...tmdbMovies]); // Trigger update
+                }
+              });
+            }
+          });
+        });
         
-        console.log("Movies from TMDB:", tmdbMovies);
+        console.log("Movies with dynamic trailers populated");
         this.movies.set(tmdbMovies);
         this.loading.set(false);
       },
