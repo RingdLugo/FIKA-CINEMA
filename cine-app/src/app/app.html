@@ -1,20 +1,31 @@
 <!-- ENCABEZADO GLOBAL -->
 <nav class="navbar border-bottom nav-fondo nav-sombra d-flex justify-content-between px-4 py-2 sticky-top bg-light">
-  <div class="d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center gap-4">
     <a routerLink="/" class="navbar-brand">
       <img src="assets/img/fikacinema.png" alt="Logo Fika Cinema" style="height: 50px; object-fit: contain;">
     </a>
+    <div class="d-none d-lg-flex gap-3">
+      <a routerLink="/inicio" class="nav-link fw-bold text-dark text-uppercase small">Cartelera</a>
+      <a routerLink="/inicio" class="nav-link fw-bold text-dark text-uppercase small">Preventas</a>
+      <a routerLink="/inicio" class="nav-link fw-bold text-dark text-uppercase small">IMAX</a>
+      <div class="dropdown">
+        <a class="nav-link fw-bold text-dark text-uppercase small dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Más</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-content" href="#">Promociones</a></li>
+          <li><a class="dropdown-content" href="#">Alimentos</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
   
   <div class="d-flex gap-3 align-items-center">
     @if (selectedCine()) {
-      <div class="cine-indicator bg-success text-white px-3 py-1 rounded-pill small me-3">
+      <div class="cine-indicator bg-danger text-white px-3 py-1 rounded-pill small me-3 shadow-sm">
         <i class="bi bi-building me-1"></i>{{ selectedCine()! }}
       </div>
     }
-    <a routerLink="/inicio" class="nav-btn">Cartelera</a>
-    <a routerLink="/encontrar-cine" class="nav-btn"><i class="bi bi-search me-2"></i>Buscar Cine</a>
-    <a routerLink="/login" class="nav-btn">Mi Cuenta</a>
+    <a routerLink="/encontrar-cine" class="btn btn-outline-dark btn-sm rounded-pill px-3"><i class="bi bi-search me-2"></i>Buscar Cine</a>
+    <a routerLink="/login" class="btn btn-dark btn-sm rounded-pill px-3">Mi Cuenta</a>
   </div>
 </nav>
 

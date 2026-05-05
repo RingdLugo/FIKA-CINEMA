@@ -1,13 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
 
 /* --COLORES, SOMBRAS Y TIPOGRAFÍA--- */
 :root {
     --bg-app: #f2f2f2;
-    --font-primary: Arial, Helvetica, sans-serif;
-    --color-primary: #dc3545;                   /* color principal (rojo cartelera) */
-    --color-primary-dark: #b02a37;              
+    --font-primary: 'Outfit', sans-serif;
+    --color-primary: #C41230;                   /* Rojo Premium Fika */
+    --color-primary-dark: #8b0d22;              
     --color-secondary: #2b2b2b;                 /* Gris Oscuro (Botones) */
-    --color-accent: #f5c542;                    /* Amarillo Fika */
+    --color-accent: #ffb300;                    /* Amarillo Fika */
     
     --shadow-sm: 0 5px 10px rgba(0,0,0,0.08);   /* sombra pequeña */
     --shadow-md: 0 10px 20px rgba(0,0,0,0.15);  /* sombra mediana */

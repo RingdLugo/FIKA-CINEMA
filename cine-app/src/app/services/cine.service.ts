@@ -34,10 +34,37 @@ export interface Movie {
 export class CineService {
   private http = inject(HttpClient);
 
+  selectedState = signal<string | null>(null);
+  selectedCity = signal<string | null>(null);
   selectedCine = signal<string | null>(null);
+  
   movies = signal<Movie[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
+
+  locations = [
+    {
+      state: 'CDMX',
+      cities: [
+        { name: 'Benito Juárez', cines: ['FIKA Sat', 'FIKA Mitikah'] },
+        { name: 'Cuauhtémoc', cines: ['FIKA Reforma', 'FIKA Plaza Sol'] }
+      ]
+    },
+    {
+      state: 'Estado de México',
+      cities: [
+        { name: 'Naucalpan', cines: ['FIKA Torres', 'FIKA Satélite'] },
+        { name: 'Tlalnepantla', cines: ['FIKA Mundo E', 'FIKA Arboledas'] }
+      ]
+    },
+    {
+      state: 'Jalisco',
+      cities: [
+        { name: 'Guadalajara', cines: ['FIKA Andares', 'FIKA Centro'] },
+        { name: 'Zapopan', cines: ['FIKA Galerías', 'FIKA Belenes'] }
+      ]
+    }
+  ];
 
   private tmdbUrl = 'https://api.themoviedb.org/3';
 
@@ -53,53 +80,59 @@ export class CineService {
 
     this.http.get<any>(url).subscribe({
       next: (response) => {
-        const tmdbMovies = response.results.map((m: any, index: number) => ({
-          id: m.id.toString(),
-          title: m.title,
-          poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
-          trailer: '', // Se llenará abajo
-          description: m.overview,
-          director: 'Por definir',
-          actors: 'Por definir',
-          classification: m.adult ? 'C' : 'B',
-          originalTitle: m.original_title,
-          releaseDate: m.release_date,
-          genre: 'Acción / Aventura',
-          country: 'Estados Unidos',
-          duration: '120 min',
-          distributor: 'FIKA Distribution',
-          isUpcoming: index >= 12,
-          isPresale: index >= 10 && index < 12,
-          schedules: {
-            'FIKA Sat': { espanol: ['12:00', '15:00', '19:00'], sub: ['21:00'], regular: [] },
-            'FIKA Las Torres': { espanol: ['14:00', '18:00'], sub: ['16:00', '20:00'], regular: [] },
-            'FIKA Plaza Sol': { espanol: ['13:00', '17:00'], sub: [], regular: ['15:00', '19:00'] }
-          }
-        }));
+        // Obtener todos los nombres de cines de la estructura de locations
+        const allCineNames: string[] = [];
+        this.locations.forEach(state => {
+          state.cities.forEach(city => {
+            allCineNames.push(...city.cines);
+          });
+        });
 
-        // Obtener trailers para las primeras 15 películas
+        const tmdbMovies = response.results.map((m: any, index: number) => {
+          const schedules: Record<string, Schedules> = {};
+          
+          // Asignar horarios a TODOS los cines para que siempre haya películas
+          allCineNames.forEach(cineName => {
+            schedules[cineName] = { 
+              espanol: ['12:00', '15:30', '18:45'], 
+              sub: ['21:15'], 
+              regular: ['13:00', '16:00'] 
+            };
+          });
+
+          return {
+            id: m.id.toString(),
+            title: m.title,
+            poster: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
+            trailer: '',
+            description: m.overview,
+            director: 'Por definir',
+            actors: 'Por definir',
+            classification: m.adult ? 'C' : 'B',
+            originalTitle: m.original_title,
+            releaseDate: m.release_date,
+            genre: 'Acción / Aventura',
+            country: 'Estados Unidos',
+            duration: '120 min',
+            distributor: 'FIKA Distribution',
+            isUpcoming: index >= 15,
+            isPresale: index >= 12 && index < 15,
+            schedules: schedules
+          };
+        });
+
+        // Obtener trailers
         tmdbMovies.slice(0, 15).forEach((movie: any) => {
           const videoUrl = `${this.tmdbUrl}/movie/${movie.id}/videos?api_key=${environment.tmdbApiKey}&language=es-MX`;
           this.http.get<any>(videoUrl).subscribe(videoRes => {
             const trailer = videoRes.results.find((v: any) => v.type === 'Trailer' && v.site === 'YouTube');
             if (trailer) {
               movie.trailer = `https://www.youtube.com/embed/${trailer.key}`;
-              this.movies.set([...tmdbMovies]); // Trigger update
-            } else {
-              // Si no hay en español, buscar en inglés
-              const videoUrlEn = `${this.tmdbUrl}/movie/${movie.id}/videos?api_key=${environment.tmdbApiKey}`;
-              this.http.get<any>(videoUrlEn).subscribe(videoResEn => {
-                const trailerEn = videoResEn.results.find((v: any) => v.type === 'Trailer' && v.site === 'YouTube');
-                if (trailerEn) {
-                  movie.trailer = `https://www.youtube.com/embed/${trailerEn.key}`;
-                  this.movies.set([...tmdbMovies]); // Trigger update
-                }
-              });
+              this.movies.set([...tmdbMovies]);
             }
           });
         });
         
-        console.log("Movies with dynamic trailers populated");
         this.movies.set(tmdbMovies);
         this.loading.set(false);
       },
