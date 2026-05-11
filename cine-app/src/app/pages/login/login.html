@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="login-box">
+        <h1>¡Bienvenido!</h1>
+        <p class="subtitle">
+            Inicia sesión para acceder a nuestros beneficios
+        </p>
+
+        <form (ngSubmit)="onLogin()">
+            <label>Usuario:</label>
+            <input type="email" name="email" [(ngModel)]="email" placeholder="Ingresa tu correo" required>
+
+            <label>Contraseña:</label>
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña" required>
+
+            @if (errorMessage) {
+                <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-size: 0.9em;">
+                    {{ errorMessage }}
+                </div>
+            }
+
+            <button type="submit" class="btn-login" [disabled]="loading">
+                {{ loading ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+            </button>
+        </form>
+
+        <a href="recuperar.html" class="forgot-password">
+            ¿Olvidaste tu contraseña?
+        </a>
+
+        <p class="social-text">O inicia sesión con:</p>
+
+        <div class="social-icons">
+            <a href="javascript:void(0)" (click)="loginWithOAuth('facebook')">
+                <img src="assets/img/facebook.png" alt="Facebook">
+            </a>
+            <!-- Nota: Supabase no tiene proveedor directo de 'instagram'. Generalmente se hace a través de Facebook.
+                 Dejaré un enlace para mantener el diseño y mostrar una alerta si se hace clic. -->
+            <a href="javascript:void(0)" (click)="errorMessage = 'El inicio de sesión con Instagram requiere configuración adicional en Meta.'">
+                <img src="assets/img/instagram.png" alt="Instagram">
+            </a>
+        </div>
+
+        <div class="register-section">
+            <span>¿No tienes cuenta?</span>
+            <a routerLink="/registro" class="btn-register">
+                Regístrate aquí
+            </a>
+        </div>
+    </div>
+</div>
+
