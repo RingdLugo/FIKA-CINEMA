@@ -1,0 +1,239 @@
+/* 
+   FIKA CINEMA - PREMIUM STYLE SHEET
+   Inspired by high-end cinema chains but respecting original palette.
+*/
+
+:root {
+    --fika-red: #C41230;
+    --fika-dark: #121212;
+    --fika-bg: #f8f9fa;
+    --fika-gold: #ffb300;
+    --shadow-premium: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+body {
+    background-color: var(--fika-bg);
+    font-family: 'Outfit', sans-serif;
+}
+
+/* --- MAIN SLIDER SECTION --- */
+.slider-section {
+    height: 80vh;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.slider-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.overlay-slider {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+}
+
+.slider-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 10vh;
+}
+
+.poster-slider {
+    width: 250px;
+    height: 375px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-premium);
+    transform: perspective(1000px) rotateY(-15deg);
+    transition: transform 0.5s ease;
+}
+
+.carousel-item.active .poster-slider {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.movie-title {
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.9;
+    background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+.btn-fika-danger {
+    background: var(--fika-red);
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-fika-danger:hover {
+    background: #8b0d22;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(196, 18, 48, 0.5);
+}
+
+.btn-fika-outline {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+}
+
+.btn-fika-outline:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* --- LOCATION SELECTOR --- */
+.location-selector-bar {
+    background: #1a1a1a;
+    padding: 20px 0;
+    border-bottom: 3px solid var(--fika-red);
+}
+
+.location-selector-bar select {
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- CARTELERA SECTION --- */
+.filter-bar {
+    padding: 2rem 0;
+    background: #fff;
+}
+
+.section-title-premium {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.pelicula-card-premium {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    background: #fff;
+    position: relative;
+}
+
+.pelicula-card-premium:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.poster-main {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.format-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    z-index: 2;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(196, 18, 48, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.pelicula-card-premium:hover .card-overlay {
+    opacity: 1;
+}
+
+.custom-ctrl {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: none;
+    opacity: 1;
+}
+
+.custom-ctrl:hover {
+    background: var(--fika-red);
+    color: #fff;
+}
+
+/* --- PREVENTA & PRONTO --- */
+.badge-estado {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    padding: 5px 20px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.badge-estado.preventa {
+    background: var(--fika-gold);
+    color: #000;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .movie-title { font-size: 2.5rem; }
+    .poster-slider { width: 180px; height: 270px; }
+}
+
+@media (max-width: 768px) {
+    .slider-section { height: 60vh; }
+    .movie-title { font-size: 1.8rem; }
+    .poster-slider { display: none; }
+    .location-selector-bar .container { flex-direction: column; align-items: stretch; }
+}

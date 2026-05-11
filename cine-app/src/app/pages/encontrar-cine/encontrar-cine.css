@@ -1,0 +1,89 @@
+
+.header {
+    background-color: #e8e8e0;
+    padding: 15px 40px;
+}
+
+.logo {
+    height: 45px;
+    object-fit: contain;
+}
+
+/* CONTENIDO */
+.container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+}
+
+.content-box {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.subtitle {
+    color: gray;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+/* FORMULARIO */
+.form-box {
+    background: #f7f7f7;
+    width: 100%;
+    max-width: 350px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 14px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    .form-box {
+        width: 90%;
+    }
+}
+
+.resultado {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mensaje {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}

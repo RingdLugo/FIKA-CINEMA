@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
+
+/* --COLORES, SOMBRAS Y TIPOGRAFÍA--- */
+:root {
+    --bg-app: #f2f2f2;
+    --font-primary: 'Outfit', sans-serif;
+    --color-primary: #C41230;                   /* Rojo Premium Fika */
+    --color-primary-dark: #8b0d22;              
+    --color-secondary: #2b2b2b;                 /* Gris Oscuro (Botones) */
+    --color-accent: #ffb300;                    /* Amarillo Fika */
+    
+    --shadow-sm: 0 5px 10px rgba(0,0,0,0.08);   /* sombra pequeña */
+    --shadow-md: 0 10px 20px rgba(0,0,0,0.15);  /* sombra mediana */
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.25);  /* sombra grande */
+}
+
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+}
+
+html, body {
+    background-color: var(--bg-app); 
+    margin: 0;
+    height: 100%;
+    color: #333; /* Texto por defecto */
+}
+
+/* ================= BOTONES GLOBALES ================= */
+.btn-primary {
+    background-color: var(--color-secondary);
+    color: var(--color-accent);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-primary:hover {
+    background-color: #000;
+    color: #ffb300;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary);
+    color: #fff;
+}
+
+/* ================= BOTONES PARA FONDOS OSCUROS ================= */
+.btn-primary-inverse {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-primary-inverse:hover {
+    background-color: #fff;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary-inverse {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary-inverse:hover {
+    background-color: #fff;
+    color: var(--color-secondary);
+}
+
+/* ================= BOTÓN VOLVER ================= */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    color: #555;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-back i {
+    margin-right: 8px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover {
+    color: var(--color-primary);
+    transform: translateX(-4px);
+}
+
+.btn-back:hover i {
+    transform: translateX(-4px);
+}
+
+/* BADGES PARA ESTADO (CARTELERA) */
+.badge-estado {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    padding: 4px 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    background-color: rgba(255,255,255,0.9);
+    color: #000;
+    box-shadow: var(--shadow-sm);
+}
+
+.badge-estado.estreno { color: #000; }
+.badge-estado.preventa { color: #090b00; }
+.badge-estado.preestreno { color: #f59e0b; }

@@ -1,0 +1,109 @@
+<div class="container mt-4 pt-2">
+    <a routerLink="/inicio" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver a Cartelera
+    </a>
+</div>
+
+<header>
+    @if (currentMovie()) {
+        <h1>{{ currentMovie()!.title }}</h1>
+    }
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="container">
+
+    <!-- LADO IZQUIERDO -->
+    <div class="left">
+
+        <div class="video">
+            @if (currentMovie()) {
+                <iframe width="100%" height="300"\n                    [src]="safeTrailer()"\n                    frameborder="0"\n                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"\n                    allowfullscreen>\n                </iframe>
+            }
+        </div>
+
+        @if (currentMovie()) {
+            <h2>{{ currentMovie()!.title }}</h2>
+
+            <p class="description" [innerHTML]="safeDescription()">
+            </p>
+
+            <div class="info">
+                <p><strong>Clasificación:</strong> {{ currentMovie()!.classification }}</p>
+                <p><strong>Director:</strong> {{ currentMovie()!.director }}</p>
+                <p><strong>Actores:</strong> {{ currentMovie()!.actors }}</p>
+            </div>
+        }
+    </div>
+
+    <!-- LADO DERECHO -->
+    <div class="right">
+        @if (currentMovie() && !currentMovie()?.isUpcoming) {
+            <div class="dates">
+                @for (day of days; track day.id) {
+                    <button class="day" [class.selected]="selectedDay() === day.id" (click)="selectDay(day.id)">
+                        {{ day.name }}
+                    </button>
+                }
+            </div>
+
+            <div class="schedule">
+                @if (currentSchedule().espanol.length > 0) {
+                    <h3>Premium Español</h3>
+                    <div class="times" id="seccionEspanol">
+                        @for (time of currentSchedule().espanol; track time) {
+                            <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                        }
+                    </div>
+                }
+
+                @if (currentSchedule().sub.length > 0) {
+                    <h3>Premium Subtitulada</h3>
+                    <div class="times" id="seccionSub">
+                        @for (time of currentSchedule().sub; track time) {
+                            <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                        }
+                    </div>
+                }
+
+                @if (currentSchedule().regular.length > 0) {
+                    <h3>Regular Español</h3>
+                    <div class="times" id="regularSection">
+                        @for (time of currentSchedule().regular; track time) {
+                            <button class="time" [class.selected]="selectedTime() === time" (click)="selectTime(time)">{{ time }}</button>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="actions">
+                <a routerLink="/venta-boletos" class="btn-primary" [class.disabled]="!selectedTime()">CONTINUAR</a>
+                <a routerLink="/" id="cancelBtn" class="btn-secondary">CANCELAR</a>
+            </div>
+        } @else if (currentMovie()) {
+            <div class="technical-sheet bg-light p-4 rounded-3 shadow-sm">
+                <div class="text-center mb-4">
+                    <span class="badge bg-primary text-uppercase px-3 py-2 mb-2">Próximamente</span>
+                    <h3 class="fw-bold text-dark">FICHA TÉCNICA</h3>
+                </div>
+                
+                <ul class="list-unstyled">
+                    <li class="mb-2"><strong>Título original:</strong> {{ currentMovie()!.originalTitle }}</li>
+                    <li class="mb-2"><strong>Fecha de estreno:</strong> {{ currentMovie()!.releaseDate }}</li>
+                    <li class="mb-2"><strong>Clasificación:</strong> {{ currentMovie()!.classification }}</li>
+                    <li class="mb-2"><strong>Género:</strong> {{ currentMovie()!.genre }}</li>
+                    <li class="mb-2"><strong>Director:</strong> {{ currentMovie()!.director }}</li>
+                    <li class="mb-2"><strong>País:</strong> {{ currentMovie()!.country }}</li>
+                    <li class="mb-2"><strong>Duración:</strong> {{ currentMovie()!.duration }}</li>
+                    <li class="mb-2"><strong>Distribuidor:</strong> {{ currentMovie()!.distributor }}</li>
+                </ul>
+
+                <div class="mt-4 text-center border-top pt-3">
+                    <p class="text-muted small">Esta película aún no cuenta con funciones disponibles.</p>
+                    <a routerLink="/inicio" class="btn btn-outline-secondary btn-sm w-100">VOLVER A CARTELERA</a>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
