@@ -1,0 +1,99 @@
+
+
+<div class="app-container">
+
+<!-- ---- Header / Logo ---- -->
+
+
+<!-- ---- Panel principal ---- -->
+<div class="main-panel">
+
+  <!-- ---- Formulario de película ---- -->
+  <div class="form-panel">
+    <div class="section-title">Datos de la película</div>
+
+    <form id="peliculaForm" class="form-fields" onsubmit="return false;">
+      <div class="row">
+        <label for="noPelicula">No. Película</label>
+        <input type="text" id="noPelicula" name="noPelicula" class="input-box short" placeholder="Ej: 1 (prueba 1-100)">
+      </div>
+      <div class="row">
+        <label for="generos">Géneros</label>
+        <input type="text" id="generos" name="generos" class="input-box long" placeholder="Acción, Drama, Suspenso...">
+      </div>
+      <div class="row">
+        <label for="serie">Serie</label>
+        <input type="text" id="serie" name="serie" class="input-box long" placeholder="Ej: Marvel Cinematic Universe">
+      </div>
+      <div class="row">
+        <label for="duracion">Duración</label>
+        <input type="text" id="duracion" name="duracion" class="input-box short" placeholder="Ej: 128 min">
+      </div>
+      <div class="row sinopsis-row">
+        <label for="sinopsis">Sinopsis</label>
+        <textarea id="sinopsis" name="sinopsis" class="input-box sinopsis" placeholder="Breve descripción de la película..."></textarea>
+      </div>
+      <div class="row">
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado" class="input-box short">
+          <option value="">Seleccionar</option>
+          <option value="estreno">Estreno</option>
+          <option value="preventa">Preventa</option>
+          <option value="preestreno">Pre-estreno</option>
+          <option value="cartelera">En cartelera</option>
+          <option value="proximamente">Próximamente</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="idioma">Idioma</label>
+        <select id="idioma" name="idioma" class="input-box medium">
+          <option value="">Seleccionar</option>
+          <option value="español">Español</option>
+          <option value="espanol-sub">Español (subtitulada)</option>
+          <option value="ingles">Inglés (subtitulada)</option>
+          <option value="ingles-doblada">Inglés (doblada)</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="reparto1">Reparto 1</label>
+        <input type="text" id="reparto1" name="reparto1" class="input-box long" placeholder="Actor principal o director">
+      </div>
+      <div class="row">
+        <label for="reparto2">Reparto 2</label>
+        <input type="text" id="reparto2" name="reparto2" class="input-box long" placeholder="Actor secundario o productor">
+      </div>
+      <div class="row">
+        <label for="posterUpload">Póster</label>
+        <input type="file" id="posterUpload" name="poster" accept="image/*" class="input-box long">
+      </div>
+    </form>
+  </div>
+
+  <!-- ---- Panel de previsualización ---- -->
+  <div class="poster-panel">
+    <div class="section-title poster-title">— POSTER —</div>
+    <div class="poster-box">
+      <img src="https://images.unsplash.com/photo-1607604053594-86421d8b4761?w=400"
+           alt="Previsualización del póster" id="posterPreview">
+    </div>
+  </div>
+
+</div>
+
+<!-- ---- Toolbar / botones ---- -->
+<div class="toolbar">
+  <div class="toolbar-label">Mantenimiento</div>
+  <div class="buttons-group">
+    <button type="button" class="btnform insert">📥 Insertar</button>
+    <button type="button" class="btnform buscar">🔍 Buscar</button>
+    <button type="button" class="btnform modificar">🖊️ Modificar</button>
+    <button type="button" class="btnform eliminar">🗑️ Eliminar</button>
+    <a routerLink="/" class="btn-back" style="margin-left: 10px;">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+  </div>
+</div>
+
+</div>
+

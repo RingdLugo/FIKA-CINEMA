@@ -1,0 +1,208 @@
+<div class="container-fluid px-4 py-3">
+    <a routerLink="/detalles-pelicula" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Volver a Detalles
+    </a>
+</div>
+
+<div class = "banner">
+<img src="assets/img/cumbres-banner.png" alt="Banner de Cumbres Borrascosas" class="img-fluid w-100">
+</div>
+
+<div class="container-fluid">
+<div class="row g-4">
+
+  <div class="col-md-8">
+
+    <div class="bg-white p-3 rounded border shadow-sm mb-4">
+      <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+        <div class="d-flex align-items-center gap-2">
+          <span class="bg-warning cuadrito-leyenda">&nbsp;
+          </span> 
+          <small class="texto-leyenda">Seleccionado</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="bg-success cuadrito-leyenda">&nbsp;
+          </span> 
+          <small class="texto-leyenda">Disponible</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="bg-secondary cuadrito-leyenda d-flex align-items-center justify-content-center">
+            <i class="bi bi-person-fill" style="font-size: 1.8rem;"></i>
+          </span> 
+          <small class="texto-leyenda">Ocupado</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="cuadrito-leyenda bg-info d-flex align-items-center justify-content-center">
+            <i class="bi bi-person-wheelchair" style="font-size: 1.8rem;"></i>
+          </span> 
+          <small class="texto-leyenda">Silla de Ruedas</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-4 rounded border shadow-sm overflow-hidden text-center">
+      <div class="alert alert-secondary py-1 mb-5 shadow-sm pantalla-cine">
+        <small class="fw-bold text-uppercase">Pantalla</small>
+      </div>
+
+      <div class="table-responsive bg-white p-4 rounded shadow-sm border">
+        <div class="contenedor-asientos">
+          @for (row of rows; track row) {
+            <div class="fila-asientos">
+              <div class="letra-fila">{{ row }}</div>
+              @for (col of columns; track col) {
+                <button 
+                  class="btn btn-sm shadow-sm btn-asiento"
+                  [class.btn-success]="getSeatStatus(row, col) === 'available'"
+                  [class.btn-warning]="getSeatStatus(row, col) === 'selected'"
+                  [class.btn-secondary]="getSeatStatus(row, col) === 'occupied'"
+                  [class.btn-info]="getSeatStatus(row, col) === 'wheelchair'"
+                  (click)="toggleSeat(row, col)"
+                  [disabled]="getSeatStatus(row, col) === 'occupied'"
+                >
+                  @if (getSeatStatus(row, col) === 'wheelchair' || getSeatStatus(row, col) === 'occupied') {
+                    <i class="bi" 
+                       [class.bi-person-wheelchair]="getSeatStatus(row, col) === 'wheelchair'"
+                       [class.bi-person-fill]="getSeatStatus(row, col) === 'occupied'"
+                       style="line-height: 1;"></i>
+                  } @else {
+                    {{ col }}
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="col-md-4 carrito-sticky">
+      <div class="card carrito-card border-0 custom-cart">
+          <div class="card-header header-carrito bg border-bottom py-3 d-flex align-items-center">
+              <i class="bi bi-cart3 me-2 fs-4"></i> <h5 class="mb-0 fw-bold">Tu carrito</h5>
+          </div>
+
+          <div class="card-body p-4">
+              <div class="d-flex mb-3">
+                  <img src="assets/img/Cumbres-poster.png" class="img-poster shadow-sm me-3" alt="Cumbres Borrascosas">
+                  <div class="flex-grow-1">
+                      <h5 class="fw-bold mb-2">Cumbres Borrascosas</h5>
+                      <hr class="my-2">
+                        <div class="info-pelicula">
+                            <div class="col-8 text-center">
+                                <label class="text-muted d-block">Clasificación</label>
+                                <span class="badge bg-warning text-dark px-3 py-2">TBC</span>
+                            </div>
+                            <div class="col-8 text-center">
+                                <label class="text-muted d-block">Duración</label>
+                                <span class="fw-semibold">198 min</span>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+              
+              <hr class="my-1">
+              <button class="bg-light-gray p-3 mb-3 small text-muted rounded-1" data-bs-toggle="modal" data-bs-target="#modaltbc">
+              Para adolescentes de 12 años en adelante. La narrativa puede ser compleja. Presenta...
+              </button>
+
+              <div class="mb-3">
+                  <label class="text-muted small d-block">Cine</label>
+                  <p class="fw-medium mb-2">Galerías Pachuca</p>
+                  
+                  <div class="row">
+                      <div class="col-8">
+                          <label class="text-muted small d-block">Fecha y hora</label>
+                          <p class="fw-medium mb-0">Miercoles 19, 09:45 pm</p>
+                      </div>
+                      <div class="col-4 text-center">
+                          <label class="text-muted small d-block">Sala</label>
+                          <p class="fw-medium mb-0">5</p>
+                      </div>
+                  </div>
+              </div>
+
+              <hr class="my-1">
+              @if (selectedSeats.size === 0) {
+                  <div class="bg-light-gray p-3 d-flex align-items-center mb-4 rounded-1">
+                      <div class="icon-chair me-3">
+                          <i class="bi bi-couch"></i>
+                      </div>
+                      <span class="small">No has seleccionado tus asientos</span>
+                  </div>
+              } @else {
+                  <div class="bg-light-gray p-3 mb-4 rounded-1 border border-warning" style="background-color: #fdfaf0;">
+                      <div class="d-flex justify-content-between mb-2">
+                          <span class="small fw-bold">Asientos Seleccionados</span>
+                          <span class="badge bg-primary rounded-pill">{{ selectedSeats.size }}</span>
+                      </div>
+                      <div class="d-flex flex-wrap gap-1">
+                          @for (seat of selectedSeatsArray; track seat) {
+                              <span class="badge bg-warning text-dark">{{ seat }}</span>
+                          }
+                      </div>
+                  </div>
+              }
+              
+              <hr class="my-1"> 
+              <div class="bg-light-gray p-2 rounded-1 mb-1 d-flex justify-content-between">
+                  <span class="fw-bold">Total</span>
+                  <span class="fw-bold">{{ totalAmount | currency:'MXN' }}</span>
+              </div>
+              
+              <button class="btn btn-primary btn-lg w-100 shadow-sm" [disabled]="selectedSeats.size === 0" data-bs-toggle="modal" data-bs-target="#modalConfirmar">
+              Confirmar compra
+              </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="modalConfirmar" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header border-0">
+      <h5 class="modal-title">Confirmar compra</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body text-center">
+      <p class="fs-5">¿Deseas confirmar los boletos seleccionados?</p>
+    </div>
+    <div class="modal-footer border-0">
+      <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      <button class="btn btn-success px-4" data-bs-dismiss="modal">Aceptar</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="modaltbc" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header border-0">
+      <h5 class="modal-title">Importante</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body text-center">
+      <p class="fs-5">No recomendada para menores de 15 años. 
+        La narrativa puede ser muy compleja y el contenido, 
+        al ser más explícito que el de la clasificación B, 
+        requiere cierto nivel de discernimiento y juicio. 
+        Puede contener mayor grado de horror y la violencia 
+        se puede vincular con conductas sexuales siempre 
+        que no se lleve al extremo. El erotismo y las escenas 
+        sexuales son implícitas y en un contexto no degradante 
+        o humillante. El consumo de drogas es mínimo y no se alienta. 
+        Puede contener expresiones y palabras procaces.</p>
+    </div>
+    <div class="modal-footer border-0">
+      <button class="btn btn-success px-4" data-bs-dismiss="modal">Aceptar y continuar</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
