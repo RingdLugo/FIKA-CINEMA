@@ -5,15 +5,21 @@
             Inicia sesión para acceder a nuestros beneficios
         </p>
 
-        <form>
+        <form (ngSubmit)="onLogin()">
             <label>Usuario:</label>
-            <input type="email" placeholder="Ingresa tu correo" required>
+            <input type="email" name="email" [(ngModel)]="email" placeholder="Ingresa tu correo" required>
 
             <label>Contraseña:</label>
-            <input type="password" placeholder="Ingresa tu contraseña" required>
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña" required>
 
-            <button type="button" class="btn-login" routerLink="/inicio">
-                Iniciar sesión
+            @if (errorMessage) {
+                <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-size: 0.9em;">
+                    {{ errorMessage }}
+                </div>
+            }
+
+            <button type="submit" class="btn-login" [disabled]="loading">
+                {{ loading ? 'Iniciando sesión...' : 'Iniciar sesión' }}
             </button>
         </form>
 
@@ -24,10 +30,12 @@
         <p class="social-text">O inicia sesión con:</p>
 
         <div class="social-icons">
-            <a href="https://www.facebook.com/login" target="_blank">
+            <a href="javascript:void(0)" (click)="loginWithOAuth('facebook')">
                 <img src="assets/img/facebook.png" alt="Facebook">
             </a>
-            <a href="https://www.instagram.com/accounts/login/" target="_blank">
+            <!-- Nota: Supabase no tiene proveedor directo de 'instagram'. Generalmente se hace a través de Facebook.
+                 Dejaré un enlace para mantener el diseño y mostrar una alerta si se hace clic. -->
+            <a href="javascript:void(0)" (click)="errorMessage = 'El inicio de sesión con Instagram requiere configuración adicional en Meta.'">
                 <img src="assets/img/instagram.png" alt="Instagram">
             </a>
         </div>

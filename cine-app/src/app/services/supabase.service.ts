@@ -25,6 +25,12 @@ export class SupabaseService {
     return await this.supabase.auth.signInWithPassword({ email, password });
   }
 
+  async signInWithOAuth(provider: 'facebook' | 'google' /* Instagram uses Facebook/Meta for OAuth usually, but we can type as string if needed, let's just accept provider */) {
+    return await this.supabase.auth.signInWithOAuth({
+      provider: provider as any,
+    });
+  }
+
   async signOut() {
     return await this.supabase.auth.signOut();
   }

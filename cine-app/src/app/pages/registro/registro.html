@@ -12,21 +12,32 @@
             Regístrate y disfruta de la experiencia FIKA Cinema
         </p>
 
-        <form action="../html/encontrar-cine.html">
+        <form (ngSubmit)="onRegister()">
             <label>Nombre completo:</label>
-            <input type="text" placeholder="Ingresa tu nombre completo" required>
+            <input type="text" name="nombreCompleto" [(ngModel)]="nombreCompleto" placeholder="Ingresa tu nombre completo" required>
 
             <label>Correo electrónico:</label>
-            <input type="email" placeholder="Ingresa tu correo" required>
+            <input type="email" name="email" [(ngModel)]="email" placeholder="Ingresa tu correo" required>
 
             <label>Contraseña:</label>
-            <input type="password" placeholder="Crea una contraseña" required>
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Crea una contraseña" required>
 
             <label>Confirmar contraseña:</label>
-            <input type="password" placeholder="Confirma tu contraseña" required>
+            <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirma tu contraseña" required>
 
-            <button type="submit" class="btn-primary w-100" routerLink="/">
-                Crear Mi Cuenta
+            @if (errorMessage) {
+                <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-size: 0.9em;">
+                    {{ errorMessage }}
+                </div>
+            }
+            @if (successMessage) {
+                <div class="success-message" style="color: #4CAF50; margin-bottom: 15px; font-size: 0.9em;">
+                    {{ successMessage }}
+                </div>
+            }
+
+            <button type="submit" class="btn-primary w-100" [disabled]="loading">
+                {{ loading ? 'Creando cuenta...' : 'Crear Mi Cuenta' }}
             </button>
         </form>
         
