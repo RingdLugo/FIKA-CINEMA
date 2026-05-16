@@ -3,12 +3,12 @@
     <section class="slider-section">
         <div id="sliderPrincipal" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                @for (slide of sliderMovies; track slide.id; let i = $index) {
+                @for (slide of sliderMovies(); track slide.id; let i = $index) {
                     <button type="button" data-bs-target="#sliderPrincipal" [attr.data-bs-slide-to]="i" [class.active]="i === 0"></button>
                 }
             </div>
             <div class="carousel-inner">
-                @for (slide of sliderMovies; track slide.id; let i = $index) {
+                @for (slide of sliderMovies(); track slide.id; let i = $index) {
                     <div class="carousel-item" [class.active]="i === 0">
                         <div class="video-container">
                             <iframe class="slider-video" 
@@ -52,7 +52,7 @@
                     <label class="text-warning small fw-bold text-uppercase d-block mb-2">Tu Estado:</label>
                     <select class="form-select w-100" (change)="onStateChange($event)">
                         <option value="">Selecciona Estado</option>
-                        @for (state of availableStates; track state) {
+                        @for (state of availableStates(); track state) {
                             <option [value]="state">{{ state }}</option>
                         }
                     </select>
@@ -61,7 +61,7 @@
                     <label class="text-warning small fw-bold text-uppercase d-block mb-2">Ciudad:</label>
                     <select class="form-select w-100" (change)="onCityChange($event)" [disabled]="!cineService.selectedState()">
                         <option value="">Selecciona Ciudad</option>
-                        @for (city of availableCities; track city.name) {
+                        @for (city of availableCities(); track city.name) {
                             <option [value]="city.name">{{ city.name }}</option>
                         }
                     </select>
@@ -70,7 +70,7 @@
                     <label class="text-warning small fw-bold text-uppercase d-block mb-2">Cine favorito:</label>
                     <select class="form-select w-100" (change)="onCineChange($event)" [disabled]="!cineService.selectedCity()">
                         <option value="">Selecciona Cine</option>
-                        @for (cine of availableCinesForCity; track cine) {
+                        @for (cine of availableCinesForCity(); track cine) {
                             <option [value]="cine">{{ cine }}</option>
                         }
                     </select>
@@ -99,7 +99,7 @@
         <div class="container position-relative">
             <div id="peliculasCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @for (group of groupedMovies; track group; let i = $index) {
+                    @for (group of groupedMovies(); track i; let i = $index) {
                         <div class="carousel-item" [class.active]="i === 0">
                             <div class="row g-4">
                                 @for (movie of group; track movie.id) {
@@ -107,6 +107,9 @@
                                         <div class="pelicula-card-premium h-100 shadow-sm border-0 bg-white">
                                             <div class="position-relative overflow-hidden poster-container">
                                                 <img [src]="movie.poster" class="card-img-top poster-main" [alt]="movie.title">
+                                                @if (movie.isCustom) {
+                                                    <div class="badge-custom-reestreno">RE-ESTRENO</div>
+                                                }
                                                 <div class="format-badge">2D | ESP</div>
                                                 <div class="card-overlay">
                                                     <a [routerLink]="['/detalles-pelicula', movie.id]" class="btn btn-light btn-sm fw-bold rounded-pill px-4">VER MÁS</a>
@@ -124,7 +127,7 @@
                     }
                 </div>
                 
-                @if (groupedMovies.length > 1) {
+                @if (groupedMovies().length > 1) {
                     <button class="carousel-control-prev custom-ctrl" type="button" data-bs-target="#peliculasCarousel" data-bs-slide="prev">
                         <i class="bi bi-chevron-left"></i>
                     </button>
@@ -149,12 +152,15 @@
             </div>
             
             <div class="row g-4 mt-2">
-                @for (movie of moviesBySelectedCine; track movie.id) {
+                @for (movie of moviesBySelectedCine(); track movie.id) {
                     <div class="col-md-6 col-lg-4">
                         <div class="pelicula-card-premium h-100 shadow-sm border-0 overflow-hidden bg-white">
                             <div class="row g-0 h-100">
-                                <div class="col-5">
-                                    <img [src]="movie.poster" class="img-fluid h-100 object-fit-cover" [alt]="movie.title">
+                                <div class="col-5 position-relative">
+                                    <img [src]="movie.poster" class="img-fluid h-100 object-fit-cover w-100" [alt]="movie.title">
+                                    @if (movie.isCustom) {
+                                        <div class="badge-custom-reestreno" style="top: 8px; left: 8px; font-size: 0.62rem; padding: 3px 8px;">RE-ESTRENO</div>
+                                    }
                                 </div>
                                 <div class="col-7 p-3 d-flex flex-column">
                                     <h5 class="fw-bold text-dark text-uppercase small mb-2">{{ movie.title }}</h5>
@@ -175,15 +181,18 @@
     }
 
     <!-- Preventa Section -->
-    @if (preventaMovies.length > 0) {
+    @if (preventaMovies().length > 0) {
         <div class="container my-5">
             <h2 class="section-title-premium mb-4">PREVENTA</h2>
             <div class="row g-4">
-                @for (movie of preventaMovies; track movie.id) {
+                @for (movie of preventaMovies(); track movie.id) {
                     <div class="col-6 col-md-3">
                         <div class="pelicula-card-premium h-100 shadow-sm border-0">
                             <div class="position-relative overflow-hidden poster-container">
                                 <img [src]="movie.poster" [alt]="movie.title" class="card-img-top poster-main">
+                                @if (movie.isCustom) {
+                                    <div class="badge-custom-reestreno">RE-ESTRENO</div>
+                                }
                                 <div class="badge-estado preventa">PREVENTA</div>
                             </div>
                             <div class="card-body p-3 text-center">
@@ -200,25 +209,49 @@
     <!-- Upcoming Movies Section -->
     <div class="container my-5 pb-5">
         <h2 class="section-title-premium mb-4">MUY PRONTO</h2>
-        <div class="row g-4">
-            @for (movie of upcomingMovies; track movie.id) {
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="upcoming-card">
-                        <div class="poster-wrapper rounded-4 shadow overflow-hidden">
-                            <a [routerLink]="['/detalles-pelicula', movie.id]">
-                                <img [src]="movie.poster" [alt]="movie.title" class="img-fluid upcoming-poster">
-                                <div class="upcoming-overlay">
-                                    <span class="btn-ver-mas">VER MÁS</span>
+        
+        @if (groupedUpcomingMovies().length > 0) {
+            <div class="position-relative px-md-5">
+                <div id="upcomingCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (group of groupedUpcomingMovies(); track i; let i = $index) {
+                            <div class="carousel-item" [class.active]="i === 0">
+                                <div class="row g-4">
+                                    @for (movie of group; track movie.id) {
+                                        <div class="col-6 col-md-3">
+                                            <div class="upcoming-card h-100">
+                                                <div class="poster-wrapper rounded-4 shadow overflow-hidden">
+                                                    <a [routerLink]="['/detalles-pelicula', movie.id]">
+                                                        <img [src]="movie.poster" [alt]="movie.title" class="img-fluid upcoming-poster w-100 h-100 object-fit-cover">
+                                                    </a>
+                                                </div>
+                                                <div class="upcoming-info mt-3 text-center">
+                                                    <h5 class="movie-title-small text-truncate text-uppercase fw-bold mb-2">{{ movie.title }}</h5>
+                                                    <p class="release-date-tag text-danger small mb-3">ESTRENO: <span class="fw-bold">{{ movie.releaseDate }}</span></p>
+                                                    <a [routerLink]="['/detalles-pelicula', movie.id]" class="btn btn-outline-danger btn-sm w-100 rounded-pill fw-bold" style="letter-spacing: 0.5px; font-size: 0.72rem; padding: 6px 12px;">MÁS INFO</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
-                            </a>
-                        </div>
-                        <div class="upcoming-info mt-3 text-center">
-                            <h5 class="movie-title-small text-truncate text-uppercase fw-bold">{{ movie.title }}</h5>
-                            <p class="release-date-tag text-danger small">ESTRENO: <span class="fw-bold">{{ movie.releaseDate }}</span></p>
-                        </div>
+                            </div>
+                        }
                     </div>
+                    
+                    @if (groupedUpcomingMovies().length > 1) {
+                        <button class="carousel-control-prev custom-ctrl" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="prev" style="left: -40px;">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="carousel-control-next custom-ctrl" type="button" data-bs-target="#upcomingCarousel" data-bs-slide="next" style="right: -40px;">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    }
                 </div>
-            }
-        </div>
+            </div>
+        } @else {
+            <div class="text-center py-5">
+                <p class="text-muted">No hay estrenos programados por el momento.</p>
+            </div>
+        }
     </div>
 </div>

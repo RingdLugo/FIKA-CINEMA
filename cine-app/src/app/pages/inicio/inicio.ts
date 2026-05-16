@@ -35,61 +35,46 @@ export class Inicio {
     });
   });
 
-  get sliderMovies() {
-    return this.movies().slice(7, 12); // slider movies
-  }
+  sliderMovies = computed(() => {
+    return this.movies().slice(7, 12);
+  });
 
-  get posterGroups() {
-    const estrenoMovies = this.movies().slice(0, 7);
-    const groups = [];
-    for (let i = 0; i < estrenoMovies.length; i += 5) {
-      groups.push(estrenoMovies.slice(i, i + 5));
-    }
-    return groups;
-  }
-
-  get allMovies() {
-    return this.movies();
-  }
-
-  get moviesBySelectedCine() {
+  moviesBySelectedCine = computed(() => {
     const cine = this.selectedCine();
     if (!cine) {
-      // Si no hay cine seleccionado, mostrar todas las películas que NO son próximos estrenos
       return this.movies().filter(m => !m.isUpcoming);
     }
-    // Si hay cine, filtrar las que tienen horarios en ese cine
     return this.movies().filter(m => m.schedules && m.schedules[cine] && !m.isUpcoming);
-  }
+  });
 
-  get groupedMovies() {
-    const all = this.moviesBySelectedCine;
+  groupedMovies = computed(() => {
+    const all = this.moviesBySelectedCine();
     const groups = [];
     for (let i = 0; i < all.length; i += 4) {
       groups.push(all.slice(i, i + 4));
     }
     return groups;
-  }
+  });
 
-  get availableStates() {
+  availableStates = computed(() => {
     return this.cineService.locations.map(l => l.state);
-  }
+  });
 
-  get availableCities() {
+  availableCities = computed(() => {
     const state = this.cineService.selectedState();
     if (!state) return [];
     const stateData = this.cineService.locations.find(l => l.state === state);
     return stateData ? stateData.cities : [];
-  }
+  });
 
-  get availableCinesForCity() {
+  availableCinesForCity = computed(() => {
     const cityName = this.cineService.selectedCity();
     const stateName = this.cineService.selectedState();
     if (!stateName || !cityName) return [];
     const stateData = this.cineService.locations.find(l => l.state === stateName);
     const cityData = stateData?.cities.find(c => c.name === cityName);
     return cityData ? cityData.cines : [];
-  }
+  });
 
   onStateChange(event: any) {
     this.cineService.selectedState.set(event.target.value);
@@ -106,13 +91,22 @@ export class Inicio {
     this.cineService.selectedCine.set(event.target.value);
   }
 
-  get upcomingMovies() {
+  upcomingMovies = computed(() => {
     return this.movies().filter(m => m.isUpcoming);
-  }
+  });
 
-  get preventaMovies() {
+  groupedUpcomingMovies = computed(() => {
+    const all = this.upcomingMovies();
+    const groups = [];
+    for (let i = 0; i < all.length; i += 4) {
+      groups.push(all.slice(i, i + 4));
+    }
+    return groups;
+  });
+
+  preventaMovies = computed(() => {
     return this.movies().filter(m => m.isPresale);
-  }
+  });
 
   clearCine() {
     this.cineService.selectedCine.set(null);
