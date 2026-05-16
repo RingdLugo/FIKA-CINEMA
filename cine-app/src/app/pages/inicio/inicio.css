@@ -195,14 +195,17 @@ body {
     justify-content: center;
     top: 50%;
     transform: translateY(-50%);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     border: none;
     opacity: 1;
+    z-index: 10 !important;
+    transition: all 0.25s ease;
 }
 
 .custom-ctrl:hover {
     background: var(--fika-red);
     color: #fff;
+    transform: translateY(-50%) scale(1.1);
 }
 
 /* --- PREVENTA & PRONTO --- */
@@ -221,8 +224,33 @@ body {
 }
 
 .badge-estado.preventa {
-    background: var(--fika-gold);
-    color: #000;
+    background: linear-gradient(135deg, #e67e22, #d35400) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.2px;
+    font-size: 0.72rem;
+    border-radius: 6px;
+    padding: 6px 16px;
+    text-transform: uppercase;
+}
+
+/* REESTRENO BADGE STYLE */
+.badge-custom-reestreno {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    color: #121212;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* RESPONSIVE */
