@@ -1,6 +1,6 @@
 <div class="app-container">
 
-  <!-- ---- Alert banner for feedback ---- -->
+  <!-- alerta -->
   @if (alertMessage) {
     <div class="alert-banner" [ngClass]="alertType">
       <span>{{ alertMessage }}</span>
@@ -8,16 +8,16 @@
     </div>
   }
 
-  <!-- ---- Main panel ---- -->
+  <!-- panel principal -->
   <div class="main-panel">
 
-    <!-- ---- Movie Form ---- -->
+    <!-- formulario -->
     <div class="form-panel">
       <div class="section-title">Datos de la película</div>
 
       <form id="peliculaForm" class="form-fields" (submit)="$event.preventDefault()">
         
-        <!-- ID / No. Película -->
+        <!-- id -->
         <div class="row">
           <label for="noPelicula">ID / No. Película</label>
           <div style="display: flex; gap: 8px; align-items: center;">
@@ -26,49 +26,49 @@
           </div>
         </div>
         
-        <!-- Título -->
+        <!-- titulo -->
         <div class="row">
           <label for="titulo">Título</label>
           <input type="text" id="titulo" name="title" [(ngModel)]="movieForm.title" class="input-box long" placeholder="Ej: El Club de la Pelea">
         </div>
 
-        <!-- Título Original -->
+        <!-- titulo original -->
         <div class="row">
           <label for="tituloOriginal">Título Original</label>
           <input type="text" id="tituloOriginal" name="originalTitle" [(ngModel)]="movieForm.originalTitle" class="input-box long" placeholder="Ej: Fight Club">
         </div>
 
-        <!-- Géneros -->
+        <!-- generos -->
         <div class="row">
           <label for="generos">Géneros</label>
           <input type="text" id="generos" name="genre" [(ngModel)]="movieForm.genre" class="input-box long" placeholder="Acción, Drama, Suspenso...">
         </div>
 
-        <!-- Serie / Saga -->
+        <!-- saga -->
         <div class="row">
           <label for="serie">Serie / Saga</label>
           <input type="text" id="serie" name="serie" [(ngModel)]="movieForm.serie" class="input-box long" placeholder="Ej: Clásicos de Suspenso">
         </div>
 
-        <!-- Duración -->
+        <!-- duracion -->
         <div class="row">
           <label for="duracion">Duración</label>
           <input type="text" id="duracion" name="duration" [(ngModel)]="movieForm.duration" class="input-box short" placeholder="Ej: 139 min">
         </div>
 
-        <!-- Trailer URL -->
+        <!-- trailer -->
         <div class="row">
           <label for="trailer">URL del Trailer</label>
           <input type="text" id="trailer" name="trailer" [(ngModel)]="movieForm.trailer" class="input-box long" placeholder="Ej: https://www.youtube.com/embed/SUXWAEX2jlg">
         </div>
 
-        <!-- Sinopsis -->
+        <!-- sinopsis -->
         <div class="row sinopsis-row">
           <label for="sinopsis">Sinopsis</label>
           <textarea id="sinopsis" name="description" [(ngModel)]="movieForm.description" class="input-box sinopsis" placeholder="Breve descripción de la película..."></textarea>
         </div>
 
-        <!-- Estado -->
+        <!-- estado -->
         <div class="row">
           <label for="estado">Estado</label>
           <select id="estado" name="estado" [(ngModel)]="movieForm.estado" class="input-box short">
@@ -81,7 +81,7 @@
           </select>
         </div>
 
-        <!-- Clasificación -->
+        <!-- clasificacion -->
         <div class="row">
           <label for="clasificacion">Clasificación</label>
           <select id="clasificacion" name="classification" [(ngModel)]="movieForm.classification" class="input-box short">
@@ -94,90 +94,89 @@
           </select>
         </div>
 
-        <!-- Zona de Exhibición (Ubicación) -->
-        <div class="row display-zone-section" style="border-top: 1px dashed #444; padding-top: 15px; margin-top: 15px; margin-bottom: 15px;">
-          <h4 style="color: #f5c542; font-size: 1.1rem; margin-bottom: 12px; font-weight: 600;">📍 Zona de Exhibición (Ubicación)</h4>
-          
-          <div class="d-flex align-items-center gap-2 mb-3">
-            <input type="checkbox" id="allCines" name="allCines" [(ngModel)]="movieForm.allCines" style="width: 18px; height: 18px; cursor: pointer;">
-            <label for="allCines" style="margin: 0; cursor: pointer; color: #fff; font-size: 0.95rem;">Disponible en todos los complejos de FIKA Cinema</label>
+        <!-- exhibicion -->
+        <div class="row">
+          <label for="allCines">Exhibición</label>
+          <div style="display: flex; gap: 8px; align-items: center; height: 28px;">
+            <input type="checkbox" id="allCines" name="allCines" [(ngModel)]="movieForm.allCines" style="transform: scale(1.1); cursor: pointer;">
+            <span style="font-weight: bold; color: #1a1a1a; cursor: pointer; text-shadow: 1px 1px 1px #fff;" (click)="movieForm.allCines = !movieForm.allCines">
+              Disponible en todos los complejos de FIKA
+            </span>
           </div>
-
-          @if (!movieForm.allCines) {
-            <div class="location-selectors-custom p-3 rounded bg-dark border border-secondary mb-3 w-100" style="border-color: #444 !important;">
-              <!-- Estado -->
-              <div class="row mb-3">
-                <label for="targetState" style="font-size: 0.85rem; color: #ccc; display: block; margin-bottom: 5px;">Estado:</label>
-                <select id="targetState" name="targetState" [(ngModel)]="movieForm.targetState" class="input-box w-100" style="background: #2b2b2b; color: #fff; padding: 8px; border-radius: 4px; border: 1px solid #555;" (change)="movieForm.targetCity = ''; movieForm.targetCine = ''">
-                  <option value="">Seleccionar Estado</option>
-                  @for (state of statesList; track state) {
-                    <option [value]="state">{{ state }}</option>
-                  }
-                </select>
-              </div>
-
-              <!-- Ciudad -->
-              <div class="row mb-3">
-                <label for="targetCity" style="font-size: 0.85rem; color: #ccc; display: block; margin-bottom: 5px;">Ciudad:</label>
-                <select id="targetCity" name="targetCity" [(ngModel)]="movieForm.targetCity" class="input-box w-100" style="background: #2b2b2b; color: #fff; padding: 8px; border-radius: 4px; border: 1px solid #555;" [disabled]="!movieForm.targetState" (change)="movieForm.targetCine = ''">
-                  <option value="">Seleccionar Ciudad</option>
-                  @for (city of citiesList; track city.name) {
-                    <option [value]="city.name">{{ city.name }}</option>
-                  }
-                </select>
-              </div>
-
-              <!-- Cine Favorito -->
-              <div class="row">
-                <label for="targetCine" style="font-size: 0.85rem; color: #ccc; display: block; margin-bottom: 5px;">Cine Favorito:</label>
-                <select id="targetCine" name="targetCine" [(ngModel)]="movieForm.targetCine" class="input-box w-100" style="background: #2b2b2b; color: #fff; padding: 8px; border-radius: 4px; border: 1px solid #555;" [disabled]="!movieForm.targetCity">
-                  <option value="">Seleccionar Cine</option>
-                  @for (cine of cinesList; track cine) {
-                    <option [value]="cine">{{ cine }}</option>
-                  }
-                </select>
-              </div>
-            </div>
-          }
         </div>
 
-        <!-- Director -->
+        @if (!movieForm.allCines) {
+          <!-- estado local -->
+          <div class="row">
+            <label for="targetState">Estado</label>
+            <select id="targetState" name="targetState" [(ngModel)]="movieForm.targetState" class="input-box medium" (change)="movieForm.targetCity = ''; movieForm.targetCine = ''">
+              <option value="">Seleccionar Estado</option>
+              @for (state of statesList; track state) {
+                <option [value]="state">{{ state }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- ciudad local -->
+          <div class="row">
+            <label for="targetCity">Ciudad</label>
+            <select id="targetCity" name="targetCity" [(ngModel)]="movieForm.targetCity" class="input-box medium" [disabled]="!movieForm.targetState" (change)="movieForm.targetCine = ''">
+              <option value="">Seleccionar Ciudad</option>
+              @for (city of citiesList; track city.name) {
+                <option [value]="city.name">{{ city.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- cine local -->
+          <div class="row">
+            <label for="targetCine">Cine Favorito</label>
+            <select id="targetCine" name="targetCine" [(ngModel)]="movieForm.targetCine" class="input-box medium" [disabled]="!movieForm.targetCity">
+              <option value="">Seleccionar Cine</option>
+              @for (cine of cinesList; track cine) {
+                <option [value]="cine">{{ cine }}</option>
+              }
+            </select>
+          </div>
+        }
+
+        <!-- director -->
         <div class="row">
           <label for="reparto1">Director</label>
           <input type="text" id="reparto1" name="director" [(ngModel)]="movieForm.director" class="input-box long" placeholder="Director de la película">
         </div>
 
-        <!-- Actores -->
+        <!-- actores -->
         <div class="row">
           <label for="reparto2">Reparto (Actores)</label>
           <input type="text" id="reparto2" name="actors" [(ngModel)]="movieForm.actors" class="input-box long" placeholder="Actores principales separados por comas">
         </div>
 
-        <!-- País -->
+        <!-- pais -->
         <div class="row">
           <label for="pais">País</label>
           <input type="text" id="pais" name="country" [(ngModel)]="movieForm.country" class="input-box medium" placeholder="Ej: Estados Unidos">
         </div>
 
-        <!-- Distribuidor -->
+        <!-- distribuidor -->
         <div class="row">
           <label for="distribuidora">Distribuidora</label>
           <input type="text" id="distribuidora" name="distributor" [(ngModel)]="movieForm.distributor" class="input-box medium" placeholder="Ej: 20th Century Fox">
         </div>
 
-        <!-- Fecha de estreno -->
+        <!-- fecha estreno -->
         <div class="row">
           <label for="fechaEstreno">Fecha Estreno</label>
           <input type="text" id="fechaEstreno" name="releaseDate" [(ngModel)]="movieForm.releaseDate" class="input-box short" placeholder="Ej: 1999-10-15">
         </div>
 
-        <!-- Póster URL -->
+        <!-- poster url -->
         <div class="row">
           <label for="posterUrl">URL Póster</label>
           <input type="text" id="posterUrl" name="poster" [(ngModel)]="movieForm.poster" class="input-box long" placeholder="Ej: https://example.com/imagen.jpg">
         </div>
 
-        <!-- Subir Póster Local -->
+        <!-- subir poster -->
         <div class="row">
           <label for="posterUpload">Ó Subir Imagen</label>
           <input type="file" id="posterUpload" name="posterUpload" (change)="onFileSelected($event)" accept="image/*" class="input-box long">
@@ -185,7 +184,7 @@
       </form>
     </div>
 
-    <!-- ---- Poster panel / Preview ---- -->
+    <!-- vista poster -->
     <div class="poster-panel">
       <div class="section-title poster-title">— POSTER —</div>
       <div class="poster-box">
@@ -196,7 +195,7 @@
 
   </div>
 
-  <!-- ---- Toolbar / buttons ---- -->
+  <!-- botones de accion -->
   <div class="toolbar">
     <div class="toolbar-label">Mantenimiento</div>
     <div class="buttons-group">

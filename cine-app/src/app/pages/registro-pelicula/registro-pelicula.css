@@ -3,12 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* letra de la página */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
-    padding: 15px;      /* espacio desde los bordes de la ventana */
-    color: #111;        /* color de texto */
-    min-height: 100vh;  /* altura mínima para cubrir la pantalla */
+    padding: 15px;
+    color: #111;
+    min-height: 100vh;
     background: linear-gradient(to bottom, #f5f5f5, #f2f2f2);
 }
 
@@ -19,7 +18,7 @@
 }
 .nav-fondo {
     background-color:rgba(201, 172, 75, 0.15);
-    }
+}
 .nav-sombra {
     box-shadow: 
     0px 2px 4px rgba(0, 0, 0, 0.12),
@@ -35,35 +34,34 @@
 .logo {
     height: 45px;    
     object-fit: contain;
-    }   
+}   
 
-/* CAJA QUE CONTIENE TODO EL FORMULARIO Y POSTER */
+/* caja principal */
 .app-container {
-  max-width: 1100px;  /* ancho máximo de la caja */
-  margin: 0 auto;     /* centrar en la pantalla */
-  background: linear-gradient(to bottom, #f5f5f5, #f2f2f2); /* fondo degradado */
+  max-width: 1100px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #f5f5f5, #f2f2f2);
   border: 3px solid #000; 
-  border-radius: 6px;  /* bordes redondeados */
-  box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.7); /* sombra */
-  overflow: hidden;    /* evita que el contenido sobresalga */
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+  overflow: hidden;
 }
 
-
-/* ÁREA DONDE ESTÁ EL FORMULARIO Y EL POSTER */
+/* panel medio */
 .main-panel {
-  display: flex;      /* coloca formulario y poster uno al lado del otro */
-  padding: 15px 30px; /* espacio dentro del panel */
-  gap: 35px;          /* espacio entre formulario y poster */
-  background: #f9f9f1; /* color de fondo */
+  display: flex;
+  padding: 15px 30px;
+  gap: 35px;
+  background: #f9f9f1;
 }
 
-/* FORMULARIO DE DATOS DE LA PELÍCULA */
+/* formulario */
 .form-panel {
-  flex: 1;           /* ocupa todo el espacio disponible */
-  max-width: 720px;  /* ancho máximo del formulario */
+  flex: 1;
+  max-width: 720px;
 }
 
-/* TÍTULOS DE CADA SECCIÓN */
+/* titulos de seccion */
 .section-title {
   background: linear-gradient(to right, #d8d8d0, #e8e8e0);
   border: 2px solid #000;
@@ -72,38 +70,38 @@
   padding: 6px 12px;
   font-weight: bold;
   font-size: 14px;
-  margin-bottom: 10px;  /* espacio debajo del título */
-  border-radius: 3px;   /* bordes redondeados */
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.7); /* sombra ligera al texto */
+  margin-bottom: 10px;
+  border-radius: 3px;
+  text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
 }
 
-/* ORGANIZAR ETIQUETAS Y CAMPOS DEL FORMULARIO */
+/* organizador de cuadricula */
 .form-fields {
   display: grid; 
-  grid-template-columns: 130px 1fr; /* etiqueta a la izquierda, input a la derecha */
-  gap: 8px 18px;                   /* espacio entre filas y columnas */
+  grid-template-columns: 130px 1fr;
+  gap: 8px 18px;
   align-items: start;
 }
 
 .row {
-  display: contents;  /* permite que cada fila se acomode dentro de la grilla */
+  display: contents;
 }
 
 .sinopsis-row {
-  align-items: start; /* alinea la sinopsis al inicio */
+  align-items: start;
 }
 
-/* TEXTO DE LAS ETIQUETAS */
+/* etiquetas */
 label {
   font-weight: bold;
-  text-align: right;    /* etiqueta alineada a la derecha */
-  padding-right: 14px;  /* espacio entre etiqueta y campo */
+  text-align: right;
+  padding-right: 14px;
   padding-top: 5px;
   color: #1a1a1a;
-  text-shadow: 1px 1px 1px #fff; /* texto más legible */
+  text-shadow: 1px 1px 1px #fff;
 }
 
-/* ESTILO DE LOS CAMPOS DE TEXTO */
+/* entradas de texto */
 .input-box {
   background: linear-gradient(to bottom, #e8e8e0, #d8d8d0);
   border: 2px solid #000;
@@ -114,7 +112,7 @@ label {
   padding: 6px 10px;
   font-size: 13px;
   width: 100%;
-  resize: vertical; /* permite cambiar altura solo en textarea */
+  resize: vertical;
   transition: all 0.18s ease;
   border-radius: 3px;
   color: #111;
@@ -126,20 +124,20 @@ label {
   box-shadow: inset 3px 3px 6px rgba(0,0,0,0.35),
               0 0 10px rgba(0, 80, 128, 0.45),
               inset -2px -2px 4px rgba(255,255,255,0.6);
-  background: #f8fcff; /* color cuando está seleccionado */
+  background: #f8fcff;
 }
 
-/* ANCHOS DE CAMPOS */
+/* tamaños entrada */
 .input-box.short   { max-width: 170px; }
 .input-box.medium  { max-width: 320px; }
 .input-box.long    { width: 100%; }
 .input-box.sinopsis {
   height: 100px;
   min-height: 80px;
-  grid-column: 2;  /* ocupa la columna del input */
+  grid-column: 2;
 }
 
-/* ESTILO DE SELECTS */
+/* listas de seleccion */
 select.input-box {
   height: 28px;
   padding: 4px 34px 4px 10px;
@@ -152,14 +150,14 @@ select.input-box {
   appearance: none;
 }
 
-/* ESTILO PARA SUBIR ARCHIVOS */
+/* carga de archivos */
 input[type="file"].input-box {
   padding: 5px;
   height: 28px;
   cursor: pointer;
 }
 
-/* PANEL DEL POSTER */
+/* panel poster */
 .poster-panel {
   width: 340px;
   text-align: center;
@@ -184,7 +182,7 @@ input[type="file"].input-box {
   border-radius: 2px;
 }
 
-/* BARRA DE BOTONES ABAJO */
+/* barra inferior de botones */
 .toolbar {
   background: linear-gradient(to bottom, #f0f0e8, #e0e0d8);
   border-top: 3px solid #000;
@@ -205,7 +203,7 @@ input[type="file"].input-box {
   flex-wrap: wrap;
 }
 
-/* BOTONES RETRO ORIGINALES */
+/* botones retro */
 .btnform {
   padding: 8px 16px;
   background: linear-gradient(to bottom, #f5f5ed, #e5e5dd);
@@ -227,13 +225,13 @@ input[type="file"].input-box {
 .btnform:hover { transform: translateY(-1px); }
 .btnform:active { transform: translate(3px, 3px); }
 
-/* COLORES DE BOTONES POR ACCIÓN */
+/* colores botones */
 .btnform.insert    { background: linear-gradient(to bottom, #c8f0c8, #b0e0b0); }
 .btnform.modificar { background: linear-gradient(to bottom, #c8c8f0, #b0b0e0); }
 .btnform.eliminar  { color: #b00000; background: linear-gradient(to bottom, #f0c8c8, #e0b0b0); }
 .btnform.volver    { background: linear-gradient(to bottom, #ffffff, #e0e0e8); }
 
-/* BANNERS DE ALERTA RETRO */
+/* banners alerta */
 .alert-banner {
   margin: 15px 30px 0 30px;
   padding: 12px 18px;
@@ -270,18 +268,7 @@ input[type="file"].input-box {
   border-color: #0c5460 !important;
 }
 
-/* CAJA DE UBICACIÓN RETRO CONGRUENTE (📍 Zona de Exhibición) */
-.location-selectors-custom {
-  background: #f0f0e8;
-  border: 2px solid #000;
-  border-bottom: 4px solid #707070;
-  border-right: 4px solid #707070;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15);
-}
-
-/* AJUSTES PARA PANTALLAS PEQUEÑAS */
+/* pantallas pequeñas */
 @media (max-width: 950px) {
   .main-panel {
     flex-direction: column;

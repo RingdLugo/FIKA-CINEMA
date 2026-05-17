@@ -14,7 +14,7 @@ import { CineService, Movie } from '../../services/cine.service';
 export class RegistroPelicula {
   private cineService = inject(CineService);
 
-  // datos del formulario
+  // datos formulario
   movieForm = {
     id: '',
     title: '',
@@ -58,21 +58,21 @@ export class RegistroPelicula {
     return cityData ? cityData.cines : [];
   }
 
-  // alertas de estado
+  // alerta
   alertMessage = '';
   alertType: 'success' | 'error' | 'info' = 'info';
 
-  // convertir imagen a base64
+  // procesar poster local
   onFileSelected(event: any) {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.movieForm.poster = e.target.result;
-        this.showAlert('¡Imagen del póster procesada y cargada con éxito!', 'success');
+        this.showAlert('¡Imagen cargada con éxito!', 'success');
       };
       reader.onerror = () => {
-        this.showAlert('Error al procesar el póster local.', 'error');
+        this.showAlert('Error al procesar el póster.', 'error');
       };
       reader.readAsDataURL(file);
     }
@@ -81,7 +81,6 @@ export class RegistroPelicula {
   showAlert(message: string, type: 'success' | 'error' | 'info' = 'info') {
     this.alertMessage = message;
     this.alertType = type;
-    // cerrar a los 5 segundos
     setTimeout(() => {
       if (this.alertMessage === message) {
         this.alertMessage = '';
@@ -89,11 +88,11 @@ export class RegistroPelicula {
     }, 5000);
   }
 
-  // buscar por id local o en api
+  // buscar pelicula
   buscarPelicula() {
     const id = this.movieForm.id.trim();
     if (!id) {
-      this.showAlert('Por favor, ingresa un ID / No. Película para buscar.', 'error');
+      this.showAlert('Ingresa un ID para buscar.', 'error');
       return;
     }
 
@@ -103,26 +102,25 @@ export class RegistroPelicula {
 
     if (localFound) {
       this.loadMovieIntoForm(localFound);
-      this.showAlert('Película local encontrada en la base de datos.', 'success');
+      this.showAlert('Película local encontrada.', 'success');
       return;
     }
 
-    // buscar en cartelera activa
+    // buscar activa
     const activeMovies = this.cineService.movies();
     const activeFound = activeMovies.find(m => m.id === id);
     if (activeFound) {
       this.loadMovieIntoForm(activeFound);
-      this.showAlert('Película encontrada en cartelera activa.', 'success');
+      this.showAlert('Película activa encontrada.', 'success');
       return;
     }
 
-    // buscar en tmdb
+    // buscar tmdb
     if (/^\d+$/.test(id)) {
-      this.showAlert('Buscando detalles de película en TMDB API...', 'info');
+      this.showAlert('Buscando en TMDB API...', 'info');
       this.cineService.getMovieFromTMDB(id).subscribe({
         next: (tmdbRes) => {
-          // parsear resultados
-          const genresStr = tmdbRes.genres?.map((g: any) => g.name).join(', ') || 'Acción / Aventura';
+          const genresStr = tmdbRes.genres?.map((g: any) => g.name).join(', ') || 'Acción';
           const directorName = tmdbRes.credits?.crew?.find((c: any) => c.job === 'Director')?.name || 'Por definir';
           const actorsNames = tmdbRes.credits?.cast?.slice(0, 5).map((a: any) => a.name).join(', ') || 'Por definir';
           
@@ -140,7 +138,6 @@ export class RegistroPelicula {
           this.movieForm.trailer = trailerUrl;
           this.movieForm.description = tmdbRes.overview || '';
           
-          // definir estado
           const status = tmdbRes.status;
           if (status === 'In Production' || status === 'Planned' || status === 'Post Production') {
             this.movieForm.estado = 'proximamente';
@@ -156,15 +153,15 @@ export class RegistroPelicula {
           this.movieForm.releaseDate = tmdbRes.release_date || '';
           this.movieForm.poster = tmdbRes.poster_path ? `https://image.tmdb.org/t/p/w500${tmdbRes.poster_path}` : '';
 
-          this.showAlert('¡Película encontrada y datos cargados desde la API de TMDB!', 'success');
+          this.showAlert('Datos cargados de TMDB.', 'success');
         },
         error: (err) => {
-          console.error("TMDB search error:", err);
-          this.showAlert('No se encontró la película en TMDB API. Puedes ingresar los datos manualmente.', 'error');
+          console.error(err);
+          this.showAlert('No se encontró en TMDB API. Escribe los datos manualmente.', 'error');
         }
       });
     } else {
-      this.showAlert('ID no encontrado localmente. Para buscar en TMDB, el ID debe ser numérico.', 'error');
+      this.showAlert('ID no encontrado localmente.', 'error');
     }
   }
 
@@ -174,20 +171,19 @@ export class RegistroPelicula {
     const title = this.movieForm.title.trim();
 
     if (!id || !title) {
-      this.showAlert('El ID y el Título de la película son obligatorios.', 'error');
+      this.showAlert('ID y Título son obligatorios.', 'error');
       return;
     }
 
-    // validar si ya existe
     const localMovies = this.cineService.getCustomMovies();
     if (localMovies.some(m => m.id === id)) {
-      this.showAlert('Error: Ya existe una película local con ese ID. Usa "Modificar" si deseas actualizarla.', 'error');
+      this.showAlert('Ya existe una película con ese ID.', 'error');
       return;
     }
 
     const movie: Movie = this.mapFormToMovie();
     this.cineService.addCustomMovie(movie);
-    this.showAlert(`¡Película "${title}" insertada con éxito! Ya se muestra en cartelera.`, 'success');
+    this.showAlert(`¡Película "${title}" insertada con éxito!`, 'success');
   }
 
   // modificar pelicula
@@ -196,7 +192,7 @@ export class RegistroPelicula {
     const title = this.movieForm.title.trim();
 
     if (!id || !title) {
-      this.showAlert('El ID y el Título son obligatorios para modificar.', 'error');
+      this.showAlert('ID y Título son obligatorios.', 'error');
       return;
     }
 
@@ -205,7 +201,7 @@ export class RegistroPelicula {
     if (success) {
       this.showAlert(`¡Película "${title}" modificada con éxito!`, 'success');
     } else {
-      this.showAlert('Error: No se pudo modificar. Verifica si el ID existe localmente.', 'error');
+      this.showAlert('Error al modificar película.', 'error');
     }
   }
 
@@ -213,7 +209,7 @@ export class RegistroPelicula {
   eliminarPelicula() {
     const id = this.movieForm.id.trim();
     if (!id) {
-      this.showAlert('Ingresa el ID de la película que deseas eliminar.', 'error');
+      this.showAlert('Ingresa el ID de la película a eliminar.', 'error');
       return;
     }
 
@@ -224,23 +220,23 @@ export class RegistroPelicula {
     const existsActive = activeMovies.some(m => m.id === id);
 
     if (!existsLocally && !existsActive) {
-      this.showAlert('Error: La película con ese ID no existe en el catálogo.', 'error');
+      this.showAlert('La película con ese ID no existe.', 'error');
       return;
     }
 
     this.cineService.deleteCustomMovie(id);
     this.resetForm();
-    this.showAlert('¡Película eliminada con éxito del catálogo de cartelera!', 'success');
+    this.showAlert('¡Película eliminada con éxito!', 'success');
   }
 
-  // helpers
+  // cargar pelicula en formulario
   private loadMovieIntoForm(movie: Movie) {
     this.movieForm = {
       id: movie.id,
       title: movie.title || '',
       originalTitle: movie.originalTitle || movie.title || '',
       genre: movie.genre || '',
-      serie: movie.genre || '', // genero de respaldo
+      serie: movie.genre || '',
       duration: movie.duration || '',
       trailer: movie.trailer || '',
       description: movie.description || '',
@@ -259,6 +255,7 @@ export class RegistroPelicula {
     };
   }
 
+  // mapear formulario a objeto
   private mapFormToMovie(): Movie {
     return {
       id: this.movieForm.id.trim(),
@@ -282,10 +279,11 @@ export class RegistroPelicula {
       targetState: this.movieForm.allCines ? '' : this.movieForm.targetState,
       targetCity: this.movieForm.allCines ? '' : this.movieForm.targetCity,
       targetCine: this.movieForm.allCines ? '' : this.movieForm.targetCine,
-      schedules: {} // horarios por defecto
+      schedules: {}
     };
   }
 
+  // reiniciar formulario
   private resetForm() {
     this.movieForm = {
       id: '',
